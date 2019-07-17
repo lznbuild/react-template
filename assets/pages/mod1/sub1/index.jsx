@@ -117,7 +117,7 @@ class Sub1 extends React.Component {
   }
 
   render() {
-    const scrollY = window.innerHeight - 300;
+    const scrollY = window.innerHeight - 280;
     const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail, searchValue } = this.state;
     const columns = [
       {
