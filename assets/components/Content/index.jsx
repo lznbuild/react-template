@@ -40,9 +40,9 @@ class Content extends React.Component {
     return (
       <div className="bw-content">
         {
-          menuList && menuList.length > 0 ? <LeftMenu data={menuList} /> : null
+          menuList ? <LeftMenu data={menuList} /> : null
         }
-        <div className={cx({ "right-content": true, 'right-content-collapsed': collapsed === true })}>
+        <div className={cx({ "right-content": true, 'right-content-collapsed': collapsed === true, "right-content-all": !menuList })}>
 
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item href={app.root}>
