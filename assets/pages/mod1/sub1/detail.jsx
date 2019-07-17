@@ -10,7 +10,7 @@ class DetailDrawer extends React.Component {
 
     render() {
         const { visible, detail } = this.props;
-        const { name, age, address } = detail;
+        const { name, desc } = detail;
 
         return (
             <Drawer
@@ -21,8 +21,7 @@ class DetailDrawer extends React.Component {
             >
                 <Descriptions title="" column={{ xs: 1, sm: 1, md: 2 }}>
                     <Descriptions.Item label="姓名">{name || ''}</Descriptions.Item>
-                    <Descriptions.Item label="年龄">{age || ''}</Descriptions.Item>
-                    <Descriptions.Item label="地址">{address || ''}</Descriptions.Item>
+                    <Descriptions.Item label="描述">{desc || ''}</Descriptions.Item>
                 </Descriptions>
             </Drawer >
         )

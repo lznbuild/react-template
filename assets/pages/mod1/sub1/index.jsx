@@ -1,19 +1,10 @@
 import React from 'react';
-import { Button, Input, Table, Divider, Popconfirm, Icon } from 'antd';
+import { Button, Input, Table, Divider, Popconfirm, Icon, message } from 'antd';
 import EditDrawer from './drawer';
 import AddModal from './modal';
 import DetailDrawer from './detail';
 import './index.less';
-
-const dataSource = [];
-for (let i = 0; i < 46; i++) {
-  dataSource.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
-}
+import testApi from 'api/test';
 
 class Sub1 extends React.Component {
   constructor(props) {
@@ -24,6 +15,7 @@ class Sub1 extends React.Component {
       rows: 10,
       total: 0,
       searchValue: '',
+      dataSource: [],
       detail: {},
       detailVisible: false,
       addVisible: false,
@@ -40,8 +32,26 @@ class Sub1 extends React.Component {
     }, false)
   }
 
+  getList = (page = 1, rows = 10) => {
+    let params = { page, rows };
+    testApi.list(params).then(res => {
+      let data = res.data.data;
+      if (data) {
+        const { total, rows } = data;
+        this.setState({ total, dataSource: rows });
+      }
+    })
+  }
+
   componentDidMount() {
+    this.getList();
     this.initScrollY();
+  }
+
+  // 切换页码/切换每页展示条数
+  pageRowsChange = (page, rows) => {
+    this.setState({ page, rows });
+    this.getList(page, rows);
   }
 
   componentWillUnmount() {
@@ -51,34 +61,60 @@ class Sub1 extends React.Component {
     };
   }
 
-  handleAdd = () => {
-    this.setState({ addVisible: true, detail: {} });
-  }
-
-  handleEdit = (record) => {
-    this.setState({ editVisible: true, detail: record });
-  }
-
+  // 详情接口
   handleDetail = (record) => {
-    this.setState({ detailVisible: true, detail: record });
+    let params = { id: record.id };
+    testApi.detail(params).then(res => {
+      let data = res.data.data;
+      this.setState({ detailVisible: true, detail: data });
+    })
   }
 
+  // 增加接口
   addSubmit = (values) => {
-
+    testApi.add(values).then(res => {
+      if (res.data.data !== 0) {
+        message.success('添加成功');
+        this.setState({ addVisible: false });
+        this.getList();
+      } else {
+        message.error('添加失败');
+      }
+    })
   }
-
+  // 编辑接口
   editSubmit = (values) => {
-
+    testApi.update(values).then(res => {
+      if (res.data.data !== 0) {
+        message.success('编辑成功');
+        this.setState({ editVisible: false });
+        this.getList();
+      } else {
+        message.error('编辑失败');
+      }
+    })
   }
-
+  // 删除接口
+  confirmDelete = (record) => {
+    let params = { id: record.id };
+    testApi.delete(params).then(res => {
+      if (res.data.data !== 0) {
+        message.success('删除成功');
+        this.getList();
+      } else {
+        message.error('删除失败');
+      }
+    })
+  }
+  // 选中行
   setRowClassName = (record) => {
     const { rowSelectedId } = this.state;
-    return record.key === rowSelectedId ? "row-selected" : "";
+    return record.id === rowSelectedId ? "row-selected" : "";
   }
 
   render() {
     const scrollY = window.innerHeight - 300;
-    const { page, rows, total, addVisible, editVisible, detailVisible, detail } = this.state;
+    const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail } = this.state;
     const columns = [
       {
         title: '姓名',
@@ -87,15 +123,9 @@ class Sub1 extends React.Component {
         width: 200,
       },
       {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age',
-        width: 200,
-      },
-      {
-        title: '住址',
-        dataIndex: 'address',
-        key: 'address',
+        title: '描述',
+        dataIndex: 'desc',
+        key: 'desc',
         width: 200,
       },
       {
@@ -105,7 +135,7 @@ class Sub1 extends React.Component {
         width: 200,
         render: (text, record) => (
           <span>
-            <a href="javascript:;" onClick={() => this.handleEdit(record)}>编辑</a>
+            <a href="javascript:;" onClick={() => this.setState({ editVisible: true, detail: record })}>编辑</a>
             <Divider type="vertical" />
             <a href="javascript:;" onClick={() => this.handleDetail(record)}>详情</a>
             <Divider type="vertical" />
@@ -133,13 +163,14 @@ class Sub1 extends React.Component {
                 <Button type="primary" ghost onClick={this.handleSearch}>查询</Button>
               </span>
               <span>
-                <Button type="primary" onClick={this.handleAdd}>添加</Button>
+                <Button type="primary" onClick={() => this.setState({ addVisible: true, detail: {} })}>添加</Button>
               </span>
             </div>
             <div className="table-pagination">
               <Table
                 dataSource={dataSource}
                 columns={columns}
+                rowKey="id"
                 scroll={{ y: scrollY }}
                 pagination={{
                   current: page,
@@ -147,14 +178,14 @@ class Sub1 extends React.Component {
                   total: total,
                   pageSizeOptions: ['10', '30', '50'],
                   showSizeChanger: true,
-                  onShowSizeChange: (page, rows) => this.setState({ page, rows }),
+                  onShowSizeChange: this.pageRowsChange,
                   showTotal: total => `共${total}条`,
                   showQuickJumper: true,
-                  onChange: (page, rows) => this.setState({ page, rows }),
+                  onChange: this.pageRowsChange,
                 }}
                 onRow={(record) => {//表格行点击事件
                   return {
-                    onClick: () => this.setState({ rowSelectedId: record.key })
+                    onClick: () => this.setState({ rowSelectedId: record.id })
                   };
                 }}
                 rowClassName={this.setRowClassName}
