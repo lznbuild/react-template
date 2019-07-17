@@ -45,13 +45,7 @@ const paths = {
     {
       title: '项目模块3',
       path: '/mod3',
-      name: 'mod3',
-      children: [
-        {
-          title: '子模块1',
-          path: '/mod3'
-        }
-      ]
+      name: 'mod3'
     },
     {
       title: '项目模块4',

@@ -1,6 +1,6 @@
-import React from './node_modules/react';
-import { Result, Button } from './node_modules/antd';
-import routerPath from './node_modules/router/routerPath';
+import React from 'react';
+import { Result, Button } from 'antd';
+import routerPath from 'router/routerPath';
 const ServerError = () => {
   const handleClick = () => {
     window.location.href = routerPath.app.root;

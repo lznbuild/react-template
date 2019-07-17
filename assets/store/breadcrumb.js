@@ -7,6 +7,9 @@ class Breadcrumb {
   @observable values = []
 
   @action setValue = (index, value) => {
+    if(index===0){
+      this.values.length = 0;
+    }
     if (this.values.length === 0) {
       this.values[0] = value;
     } else if (this.values.length <= index) {

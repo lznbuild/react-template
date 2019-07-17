@@ -13,7 +13,9 @@ import Mod3 from 'bundle-loader?lazy&name=mod1!pages/mod3';
 import Mod4 from 'bundle-loader?lazy&name=mod1!pages/mod4';
 import './index.less';
 
+//Mod3演示无权限的显示
 const pageComponents = [Mod1, Mod2, Mod3, Mod4];
+
 const { app, modules } = routerPath;
 const getRootRedirect = () => {
   if (modules[0].path === window.location.pathname) {

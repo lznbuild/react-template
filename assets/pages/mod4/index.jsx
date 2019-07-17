@@ -1,9 +1,9 @@
 import React from 'react';
-import Content from 'components/Content';
+import ServerError from 'components/ServerError';
 
 const Mod4 = () => {
   return (
-    <Content name='mod4' />
+    <ServerError />
   )
 }
 export default Mod4;

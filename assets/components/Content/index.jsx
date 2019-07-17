@@ -5,6 +5,7 @@ import { Breadcrumb, Icon } from 'antd';
 import routerPath from '../../router/routerPath';
 import Bundle from 'router/bundle';
 import LeftMenu from 'components/LeftMenu';
+import NoAccess from 'components/NoAccess';
 import NotFound from 'components/NotFound';
 
 import './index.less';
@@ -28,6 +29,9 @@ class Content extends React.Component {
       if (pageComponents && pageComponents[index]) {
         return Bundle(pageComponents[index]);
       }
+      if(!menuList){
+        return (NoAccess);
+      }
       return (NotFound);
     }
 
@@ -35,7 +39,9 @@ class Content extends React.Component {
 
     return (
       <div className="bw-content">
-        <LeftMenu data={menuList} />
+        {
+          menuList && menuList.length > 0 ? <LeftMenu data={menuList} /> : null
+        }
         <div className={cx({ "right-content": true, 'right-content-collapsed': collapsed === true })}>
 
           <Breadcrumb className="breadcrumb">
