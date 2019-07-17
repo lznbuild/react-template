@@ -32,8 +32,8 @@ class Sub1 extends React.Component {
     }, false)
   }
 
-  getList = (page = 1, rows = 10) => {
-    let params = { page, rows };
+  getList = (page = 1, rows = 10, searchValue) => {
+    let params = { page, rows, name: searchValue };
     testApi.list(params).then(res => {
       let data = res.data.data;
       if (data) {
@@ -50,8 +50,9 @@ class Sub1 extends React.Component {
 
   // 切换页码/切换每页展示条数
   pageRowsChange = (page, rows) => {
+    const { searchValue } = this.state;
     this.setState({ page, rows });
-    this.getList(page, rows);
+    this.getList(page, rows, searchValue);
   }
 
   componentWillUnmount() {
@@ -76,7 +77,8 @@ class Sub1 extends React.Component {
       if (res.data.data !== 0) {
         message.success('添加成功');
         this.setState({ addVisible: false });
-        this.getList();
+        const { rows } = this.state;
+        this.getList(1, rows, '');
       } else {
         message.error('添加失败');
       }
@@ -88,7 +90,8 @@ class Sub1 extends React.Component {
       if (res.data.data !== 0) {
         message.success('编辑成功');
         this.setState({ editVisible: false });
-        this.getList();
+        const { page, rows, searchValue } = this.state;
+        this.getList(page, rows, searchValue);
       } else {
         message.error('编辑失败');
       }
@@ -100,7 +103,8 @@ class Sub1 extends React.Component {
     testApi.delete(params).then(res => {
       if (res.data.data !== 0) {
         message.success('删除成功');
-        this.getList();
+        const { rows } = this.state;
+        this.getList(1, rows, '');
       } else {
         message.error('删除失败');
       }
@@ -114,7 +118,7 @@ class Sub1 extends React.Component {
 
   render() {
     const scrollY = window.innerHeight - 300;
-    const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail } = this.state;
+    const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail, searchValue } = this.state;
     const columns = [
       {
         title: '姓名',
@@ -159,8 +163,13 @@ class Sub1 extends React.Component {
           <div className="table-container">
             <div className="query-panel">
               <span>
-                <Input placeholder="关键字查询" style={{ width: '200px', marginRight: '10px' }} onChange={e => this.setState({ searchValue: e.target.value })} />
-                <Button type="primary" ghost onClick={this.handleSearch}>查询</Button>
+                <Input
+                  value={searchValue}
+                  placeholder="关键字查询"
+                  style={{ width: '200px', marginRight: '10px' }}
+                  onChange={e => this.setState({ searchValue: e.target.value })}
+                />
+                <Button type="primary" ghost onClick={() => this.getList(1, rows, searchValue)}>查询</Button>
               </span>
               <span>
                 <Button type="primary" onClick={() => this.setState({ addVisible: true, detail: {} })}>添加</Button>
