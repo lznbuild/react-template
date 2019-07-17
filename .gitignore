@@ -1,0 +1,12 @@
+node_modules/
+dist/
+/.package/
+auto_router.js
+auto_config.json
+runtime_config.json
+
+.idea/
+.vscode/
+.DS_Store
+.happypack/
+.yo-rc.json
