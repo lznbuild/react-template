@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
+const { TextArea } = Input;
 
 class AddModal extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class AddModal extends React.Component {
 
     render() {
         const { visible, detail } = this.props;
-        const { name, age, address } = detail;
+        const { name, desc } = detail;
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -49,23 +50,13 @@ class AddModal extends React.Component {
                             ],
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item label="年龄">
-                        {getFieldDecorator('age', {
-                            initialValue: age || '',
+                    <Form.Item label="描述">
+                        {getFieldDecorator('desc', {
+                            initialValue: desc || '',
                             rules: [
-                                { required: true, message: '年龄不能为空!', },
+                                { required: true, message: '描述不能为空!', },
                             ],
-                        })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label="地址">
-                        {getFieldDecorator('address', {
-                            initialValue: address || '',
-                            rules: [
-                                {
-                                    required: true, message: '地址不能为空!',
-                                },
-                            ],
-                        })(<Input />)}
+                        })(<TextArea rows={4} />)}
                     </Form.Item>
                 </Form>
             </Modal>
