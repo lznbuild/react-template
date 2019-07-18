@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Header from 'components/Header';
-import Loading from 'components/Loading';
-import routerPath from '../../router/routerPath';
+import authUtils from '../../utils/authUtils';
+import loginApi from '../../api/login';
 import Bundle from 'router/bundle';
 import NotFound from 'components/NotFound';
 import NoAccess from 'components/NoAccess';
@@ -13,32 +13,50 @@ import Mod3 from 'bundle-loader?lazy&name=mod1!pages/mod3';
 import Mod4 from 'bundle-loader?lazy&name=mod1!pages/mod4';
 import './index.less';
 
-//Mod3演示无权限的显示
+//按路由访问顺序
 const pageComponents = [Mod1, Mod2, Mod3, Mod4];
 
-const { app, modules } = routerPath;
-const getRootRedirect = () => {
-  if (modules[0].path === window.location.pathname) {
-    return modules[0].children[0].path;
-  }
-  return modules[0].path;
-}
-
 const Layout = () => {
+
+  const [renderKey, setRenderKey] = useState(0);
+
+  const { newModules, oldIndexs } = authUtils.getModuleRoles();
+
+  const getRootRedirect = (modules) => {
+    if (modules[0].path === window.location.pathname) {
+      return modules[0].children[0].path;
+    }
+    return modules[0].path;
+  }
+
+  //TODO 测试使用
+  authUtils.testSetModuleRoles();
+
+  useEffect(() => {
+    //正式上线启用
+    /* loginApi.getModuleRoles({ 'modtypes': authUtils.getModTypes() }).then(res => {
+      if (res && res.data.data) {
+        authUtils.setModuleRoles(res.data.data);
+        setRenderKey(renderKey + 1);
+      }
+    }) */
+  }, []);
+
   return (
     <div className="container">
-      <Loading />
-      <Header />
-      <Switch>
-        <Route exact path={app.root}
-          render={() => <Redirect to={getRootRedirect()}></Redirect>}
-        />
-        {modules.map((item, index) => {
-          return <Route key={index} path={item.path} component={Bundle(pageComponents[index])} />
-        })}
-        <Route exact path={routerPath.app.noAccess} component={NoAccess} />
-        <Route component={NotFound} />
-      </Switch>
+      <Header key={renderKey} modules={newModules} />
+      {newModules.length > 0 ?
+        <Switch>
+          <Route exact path={authUtils.getHomePath()}
+            render={() => <Redirect to={getRootRedirect(newModules)}></Redirect>}
+          />
+          {newModules.map((item, index) => {
+            return <Route key={index} path={item.path} component={Bundle(pageComponents[oldIndexs[index]])} />
+          })}
+          <Route component={NotFound} />
+        </Switch>
+        : <NoAccess />
+      }
     </div>
   )
 }

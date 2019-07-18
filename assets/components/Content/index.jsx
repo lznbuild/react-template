@@ -2,7 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router-dom';
 import { Breadcrumb, Icon } from 'antd';
-import routerPath from '../../router/routerPath';
+import authUtils from '../../utils/authUtils';
 import Bundle from 'router/bundle';
 import LeftMenu from 'components/LeftMenu';
 import NoAccess from 'components/NoAccess';
@@ -20,16 +20,17 @@ class Content extends React.Component {
 
   render() {
     const { collapsed } = this.props.UI;
-    const { app, modules } = routerPath;
     const { name, pageComponents } = this.props;
-    const currentModule = modules.find(v => (v.name === name));
-    const menuList = currentModule && currentModule.children;
+    //const { path, children, oldIndexs } = authUtils.getSubModules(name);
+    const { path, children, oldIndexs } = authUtils.testGetSubModules(name);
+
+    const isNoAccess = !children || children.length === 0;
 
     const getPageComponent = (index) => {
       if (pageComponents && pageComponents[index]) {
         return Bundle(pageComponents[index]);
       }
-      if(!menuList){
+      if (isNoAccess) {
         return (NoAccess);
       }
       return (NotFound);
@@ -40,12 +41,12 @@ class Content extends React.Component {
     return (
       <div className="bw-content">
         {
-          menuList ? <LeftMenu data={menuList} /> : null
+          !isNoAccess ? <LeftMenu data={children} /> : null
         }
-        <div className={cx({ "right-content": true, 'right-content-collapsed': collapsed === true, "right-content-all": !menuList })}>
+        <div className={cx({ "right-content": true, 'right-content-collapsed': collapsed === true, "right-content-all": isNoAccess })}>
 
           <Breadcrumb className="breadcrumb">
-            <Breadcrumb.Item href={app.root}>
+            <Breadcrumb.Item href={authUtils.getHomePath()}>
               <Icon type="home" />
             </Breadcrumb.Item>
             {
@@ -62,9 +63,9 @@ class Content extends React.Component {
           </Breadcrumb>
 
           <Switch>
-            <Route exact path={currentModule.path} component={getPageComponent(0)} />
-            {menuList && menuList.map((item, index) => {
-              return <Route key={index} path={item.path} component={getPageComponent(index)} />
+            <Route exact path={path} component={getPageComponent(0)} />
+            {children && children.map((item, index) => {
+              return <Route key={index} path={item.path} component={getPageComponent(oldIndexs[index])} />
             })}
           </Switch>
         </div>

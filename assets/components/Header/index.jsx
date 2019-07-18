@@ -4,10 +4,9 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 import { Avatar, Dropdown, Icon, Menu } from 'antd';
 import cx from 'classnames';
-import routerPath from '../../router/routerPath';
+import authUtils from '../../utils/authUtils';
 import './index.less';
 import logo from '../../public/imgs/logo.png';
-const { modules, app } = routerPath;
 
 @inject('Breadcrumb', 'UI')
 @observer
@@ -22,8 +21,7 @@ class Header extends React.Component {
 
   handleLogout = (e) => {
     if (e.key == 'signout') {
-      window.sessionStorage.removeItem('tokenId');
-      window.location.href = app.login;
+      authUtils.logout();
     }
   };
 
@@ -37,7 +35,7 @@ class Header extends React.Component {
   handleIndex = (e) => {
     let currentRoute = this.props.location.pathname;
     if (currentRoute !== e.target.id) {
-      this.props.history.push(e.target.id);
+      window.location.href = e.target.id;
     }
   }
 
@@ -46,9 +44,12 @@ class Header extends React.Component {
   }
 
   render() {
-
     const { current } = this.state;
-    const userName = window.sessionStorage.getItem('userName');
+    const modules = this.props.modules;
+
+    const userName = authUtils.getUserName();
+    const homePath = authUtils.getHomePath();
+
     const loginMenu = (
       <Menu onClick={this.handleLogout} >
         <Menu.Item key="signout"><FormattedMessage id={userName == null ? 'login.button' : 'head.logout'} /></Menu.Item>
@@ -57,7 +58,7 @@ class Header extends React.Component {
 
     const isActive = (obj, index) => {
       let active = current.indexOf(obj.path) != -1;
-      if (!active && index === 0 && app.root == current) {
+      if (!active && index === 0 && homePath == current) {
         active = true;
       }
       if (active) {
@@ -83,7 +84,7 @@ class Header extends React.Component {
       <div className="header-component">
         <div className="header-left">
           <img src={logo} alt="" width="30px" height="32px" />
-          <span id={app.root} onClick={this.handleIndex}>xxxx项目/平台</span>
+          <span id={homePath} onClick={this.handleIndex}>xxxx项目/平台</span>
           <ul>
             {modules && modules.length > 1 && loopNavMap(modules)}
           </ul>

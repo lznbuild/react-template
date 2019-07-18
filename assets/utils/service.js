@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
+import authUtils from './authUtils';
 
 const toggleLoading = (isView) => {
   if (document.querySelector('#loading-component')) {
@@ -17,7 +18,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     toggleLoading(true);
-    let tokenId = window.sessionStorage.getItem('tokenId')
+    let tokenId = authUtils.getTokenId();
     if (typeof tokenId == 'undefined') {
       tokenId = ''
     }
@@ -42,9 +43,7 @@ service.interceptors.response.use(
     if (response.data.isError) {
       if (response.data.error.codeNumber === 904) {
         message.info(response.data.error.message, 2, () => {
-          window.sessionStorage.removeItem('tokenId')
-          window.sessionStorage.removeItem('username')
-          window.location.href = 'login'
+          authUtils.logout();
         })
       } else {
         message.info(response.data.error.message)

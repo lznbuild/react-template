@@ -1,9 +1,8 @@
 const paths = {
+  modTypes: 'user',
   app: {
     root: '/',
     login: '/login',
-    notFound: '/404',
-    noAccess: '/noaccess',
   },
   modules: [
     {

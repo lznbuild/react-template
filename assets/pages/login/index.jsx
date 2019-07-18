@@ -2,36 +2,27 @@ import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Icon, Input } from 'antd';
 import LangDropdown from 'components/LangDropdown';
-import routerPath from '../../router/routerPath';
+import loginApi from '../../api/login';
+import authUtils from '../../utils/authUtils';
 import logo from '../../public/imgs/logo.png';
 import './index.less';
 
 const Login = () => {
-  const [username, setUsername] = useState('admin');
+  const [username, setUsername] = useState('');
   const [pwd, setPwd] = useState('');
-  const {app} = routerPath;
+
   const handleSubmit = () => {
     let params = { username, pwd };
-    /* loginRolesAPI.login(params).then(res => {
-      let data = res.data.data;
-      if (data) {
-        sessionStorage.setItem("tokenId", data.tokenId);
-        sessionStorage.setItem("username", username);
-        let params = { "modtypes": config.navRoutePath };
-        loginRolesAPI.getModuleRoles(params).then(res => {
-          let data = res.data.data;
-          if (data) {
-            sessionStorage.setItem("menuList", JSON.stringify(data));
-            window.location.href = app.root;
-          }
-        })
+
+    //测试使用
+    authUtils.testLogin(params);
+
+    /* loginApi.login(params).then(res => {
+      if (res && res.data.data) {
+        authUtils.login(res.data.data);
       }
     }) */
-    //测试使用
-    console.info(params)
-    sessionStorage.setItem("tokenId", "agpjeorigliuaob156");
-    sessionStorage.setItem("userName", "test");
-    window.location.href = app.root;
+
   }
 
   return (

@@ -15,13 +15,11 @@ addLocaleData([...zh, ...en]);
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import RouteFilterHoc from 'components/Hoc/routeFilterHoc';
 import routerPath from './router/routerPath';
 import Bundle from './router/bundle';
 import Login from 'bundle-loader?lazy&name=login!pages/login/index';
 import Layout from 'bundle-loader?lazy&name=layout!pages/layout/index';
 
-@RouteFilterHoc
 class App extends React.Component {
   render() {
     const currentLang = langUtils.getCurrentLang();
