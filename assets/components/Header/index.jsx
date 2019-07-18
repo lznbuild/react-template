@@ -23,14 +23,14 @@ class Header extends React.Component {
     if (e.key == 'signout') {
       authUtils.logout();
     }
-  };
+  }
 
   handlePage = (e) => {
     this.props.UI.reset();
     this.props.Breadcrumb.setValue(0, e.currentTarget.getAttribute('name'));
     this.props.history.push(e.currentTarget.id);
     this.setState({ current: e.currentTarget.id });
-  };
+  }
 
   handleIndex = (e) => {
     let currentRoute = this.props.location.pathname;

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Input, Table, Divider, Popconfirm, Icon, message } from 'antd';
+import { Button, Input, Table, Divider,Drawer, Popconfirm, Icon, message } from 'antd';
 import EditDrawer from './drawer';
 import AddModal from './modal';
-import DetailDrawer from './detail';
+import Detail from './detail';
 import './index.less';
 import testApi from 'api/test';
 
@@ -12,7 +12,8 @@ class Sub1 extends React.Component {
     this.state = {
       key: 1,
       page: 1,
-      rows: 10,
+      rows: 2,
+      id: '',
       total: 0,
       searchValue: '',
       dataSource: [],
@@ -32,7 +33,7 @@ class Sub1 extends React.Component {
     }, false)
   }
 
-  getList = (page = 1, rows = 10, searchValue) => {
+  getList = (page = 1, rows = 2, searchValue) => {
     let params = { page, rows, name: searchValue };
     testApi.list(params).then(res => {
       let data = res.data.data;
@@ -64,11 +65,7 @@ class Sub1 extends React.Component {
 
   // 详情接口
   handleDetail = (record) => {
-    let params = { id: record.id };
-    testApi.detail(params).then(res => {
-      let data = res.data.data;
-      this.setState({ detailVisible: true, detail: data });
-    })
+    this.setState({ detailVisible: true, id: record.id });
   }
 
   // 增加接口
@@ -185,7 +182,7 @@ class Sub1 extends React.Component {
                   current: page,
                   pageSize: rows,
                   total: total,
-                  pageSizeOptions: ['10', '30', '50'],
+                  pageSizeOptions: ['2', '10', '30', '50'],
                   showSizeChanger: true,
                   onShowSizeChange: this.pageRowsChange,
                   showTotal: total => `共${total}条`,
@@ -202,35 +199,14 @@ class Sub1 extends React.Component {
             </div>
           </div>
         </div>
-        {
-          addVisible ?
-            <AddModal
-              visible={addVisible}
-              close={() => { this.setState({ addVisible: false }) }}
-              detail={detail}
-              handleSubmit={this.addSubmit}
-            />
-            : null
-        }
-        {
-          editVisible ?
-            <EditDrawer
-              visible={editVisible}
-              close={() => { this.setState({ editVisible: false }) }}
-              detail={detail}
-              handleSubmit={this.editSubmit}
-            />
-            : null
-        }
-        {
-          detailVisible ?
-            <DetailDrawer
-              visible={detailVisible}
-              close={() => { this.setState({ detailVisible: false }) }}
-              detail={detail}
-            />
-            : null
-        }
+        <Drawer
+          title="详情"
+          onClose={() => { this.setState({ detailVisible: false }) }}
+          visible={this.state.detailVisible}
+          width={"60%"}
+        >
+          <Detail id={this.state.id} />
+        </Drawer>
       </div>
     )
   }
