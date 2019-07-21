@@ -1,7 +1,9 @@
-import service from '../utils/service'
+import service from '../utils/service';
+
 const testApi = {
-  add: (params) => {
-    return service.post('/test/add', params)
+  addOrUpdate: (isAddHandle, params) => {
+    let apiUrl = isAddHandle ? '/test/add' : '/test/update';
+    return service.post(apiUrl, params);
   },
   delete: (params) => {
     return service.post('/test/delete', params)
@@ -12,8 +14,6 @@ const testApi = {
   list: (params) => {
     return service.post('/test/list', params)
   },
-  update: (params) => {
-    return service.post('/test/update', params)
-  },
+
 }
 export default testApi;

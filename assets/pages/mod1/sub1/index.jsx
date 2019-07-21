@@ -1,121 +1,44 @@
 import React from 'react';
-import { Button, Input, Table, Divider,Drawer, Popconfirm, Icon, message } from 'antd';
-import EditDrawer from './drawer';
-import AddModal from './modal';
+import { Form, Button, Table, Divider, Drawer, Popconfirm, Icon } from 'antd';
+import TableHoc from 'components/Hoc/tableHoc';
+import Edit from './edit';
 import Detail from './detail';
 import './index.less';
 import testApi from 'api/test';
 
+const searchFields = [{ name: 'name', title: '用户名', showType: 'input' }];
+
+@TableHoc
 class Sub1 extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      key: 1,
-      page: 1,
-      rows: 2,
-      id: '',
-      total: 0,
-      searchValue: '',
-      dataSource: [],
-      detail: {},
       detailVisible: false,
-      addVisible: false,
       editVisible: false,
-      rowSelectedId: ''
+      addVisible: false,
+      pkInfo: {}
     }
   }
 
-  initScrollY() {
-    window.addEventListener('resize', () => {
-      this.setState({
-        key: Math.random()
-      });
-    }, false)
+  componentWillMount() {
+    this.props.init(testApi);
   }
 
-  getList = (page = 1, rows = 2, searchValue) => {
-    let params = { page, rows, name: searchValue };
-    testApi.list(params).then(res => {
-      let data = res.data.data;
-      if (data) {
-        const { total, rows } = data;
-        this.setState({ total, dataSource: rows });
-      }
-    })
+  closeAddPage = (isReloadTable) => {
+    this.setState({ addVisible: false });
+    if (isReloadTable) {
+      this.props.handleSearch('add');
+    }
   }
 
-  componentDidMount() {
-    this.getList();
-    this.initScrollY();
-  }
-
-  // 切换页码/切换每页展示条数
-  pageRowsChange = (page, rows) => {
-    const { searchValue } = this.state;
-    this.setState({ page, rows });
-    this.getList(page, rows, searchValue);
-  }
-
-  componentWillUnmount() {
-    // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
-    this.setState = (state, callback) => {
-      return;
-    };
-  }
-
-  // 详情接口
-  handleDetail = (record) => {
-    this.setState({ detailVisible: true, id: record.id });
-  }
-
-  // 增加接口
-  addSubmit = (values) => {
-    testApi.add(values).then(res => {
-      if (res.data.data !== 0) {
-        message.success('添加成功');
-        this.setState({ addVisible: false });
-        const { rows } = this.state;
-        this.getList(1, rows, '');
-      } else {
-        message.error('添加失败');
-      }
-    })
-  }
-  // 编辑接口
-  editSubmit = (values) => {
-    testApi.update(values).then(res => {
-      if (res.data.data !== 0) {
-        message.success('编辑成功');
-        this.setState({ editVisible: false });
-        const { page, rows, searchValue } = this.state;
-        this.getList(page, rows, searchValue);
-      } else {
-        message.error('编辑失败');
-      }
-    })
-  }
-  // 删除接口
-  confirmDelete = (record) => {
-    let params = { id: record.id };
-    testApi.delete(params).then(res => {
-      if (res.data.data !== 0) {
-        message.success('删除成功');
-        const { rows } = this.state;
-        this.getList(1, rows, '');
-      } else {
-        message.error('删除失败');
-      }
-    })
-  }
-  // 选中行
-  setRowClassName = (record) => {
-    const { rowSelectedId } = this.state;
-    return record.id === rowSelectedId ? "row-selected" : "";
+  closeEditPage = (isReloadTable) => {
+    this.setState({ editVisible: false });
+    if (isReloadTable) {
+      this.props.handleSearch('update');
+    }
   }
 
   render() {
-    const scrollY = window.innerHeight - 280;
-    const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail, searchValue } = this.state;
     const columns = [
       {
         title: '姓名',
@@ -136,15 +59,15 @@ class Sub1 extends React.Component {
         width: 200,
         render: (text, record) => (
           <span>
-            <a href="javascript:;" onClick={() => this.setState({ editVisible: true, detail: record })}>编辑</a>
+            <a href="javascript:;" onClick={() => this.setState({ editVisible: true, pkInfo: record })}>编辑</a>
             <Divider type="vertical" />
-            <a href="javascript:;" onClick={() => this.handleDetail(record)}>详情</a>
+            <a href="javascript:;" onClick={() => this.setState({ detailVisible: true, pkInfo: record })}>详情</a>
             <Divider type="vertical" />
             <Popconfirm
               placement="left"
               icon={<Icon type="question-circle" theme="filled" style={{ color: '#F63A43' }} />}
               title={`确定要删除吗?`}
-              onConfirm={() => this.confirmDelete(record)}
+              onConfirm={() => this.props.handleDelete(record)}
               okText="确定"
               cancelText="取消"
             >
@@ -154,22 +77,26 @@ class Sub1 extends React.Component {
         )
       },
     ];
+
+    const { page, pageSize, pageSizeOptions, total, dataSource } = this.props.tableInfo;
+
+    const { addVisible, editVisible, detailVisible, pkInfo } = this.state;
+
+    const scrollY = window.innerHeight - 280;
+
     return (
       <div className="sub1">
         <div className="content">
           <div className="table-container">
             <div className="query-panel">
+              <Form className="query-panel-form" layout="inline">
+                {this.props.getFields(searchFields)}
+                <Form.Item>
+                  <Button type="primary" ghost onClick={() => this.props.handleSearch('search')}>查询</Button>
+                </Form.Item>
+              </Form>
               <span>
-                <Input
-                  value={searchValue}
-                  placeholder="关键字查询"
-                  style={{ width: '200px', marginRight: '10px' }}
-                  onChange={e => this.setState({ searchValue: e.target.value })}
-                />
-                <Button type="primary" ghost onClick={() => this.getList(1, rows, searchValue)}>查询</Button>
-              </span>
-              <span>
-                <Button type="primary" onClick={() => this.setState({ addVisible: true, detail: {} })}>添加</Button>
+                <Button type="primary" onClick={() => this.setState({ addVisible: true, pkInfo: {} })}>添加</Button>
               </span>
             </div>
             <div className="table-pagination">
@@ -180,35 +107,57 @@ class Sub1 extends React.Component {
                 scroll={{ y: scrollY }}
                 pagination={{
                   current: page,
-                  pageSize: rows,
+                  pageSize: pageSize,
                   total: total,
-                  pageSizeOptions: ['2', '10', '30', '50'],
+                  pageSizeOptions: pageSizeOptions,
                   showSizeChanger: true,
-                  onShowSizeChange: this.pageRowsChange,
+                  onShowSizeChange: this.props.pageRowsChange,
                   showTotal: total => `共${total}条`,
                   showQuickJumper: true,
-                  onChange: this.pageRowsChange,
+                  onChange: this.props.pageRowsChange,
                 }}
                 onRow={(record) => {//表格行点击事件
                   return {
-                    onClick: () => this.setState({ rowSelectedId: record.id })
+                    onClick: () => this.props.setRowSelectedId(record.id)
                   };
                 }}
-                rowClassName={this.setRowClassName}
+                rowClassName={this.props.getRowClassName}
               />
             </div>
           </div>
         </div>
-        <Drawer
-          title="详情"
-          onClose={() => { this.setState({ detailVisible: false }) }}
-          visible={this.state.detailVisible}
-          width={"60%"}
-        >
-          <Detail id={this.state.id} />
-        </Drawer>
+        {addVisible ?
+          <Drawer
+            title="添加"
+            onClose={() => this.closeAddPage(false)}
+            visible={addVisible}
+            width={"60%"}
+          >
+            <Edit handleClose={this.closeAddPage} />
+          </Drawer>
+          : null}
+        {editVisible ?
+          <Drawer
+            title="修改"
+            onClose={() => this.closeEditPage(false)}
+            visible={editVisible}
+            width={"60%"}
+          >
+            <Edit pkInfo={pkInfo} handleClose={this.closeEditPage} />
+          </Drawer>
+          : null}
+        {detailVisible ?
+          <Drawer
+            title="详情"
+            onClose={() => { this.setState({ detailVisible: false }) }}
+            visible={detailVisible}
+            width={"60%"}
+          >
+            <Detail pkInfo={pkInfo} />
+          </Drawer>
+          : null}
       </div>
     )
   }
 }
-export default Sub1;
+export default Form.create()(Sub1);

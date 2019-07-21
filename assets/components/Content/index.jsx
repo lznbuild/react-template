@@ -43,7 +43,7 @@ class Content extends React.Component {
         {
           !isNoAccess ? <LeftMenu data={children} /> : null
         }
-        <div className={cx({ "right-content": true, 'right-content-collapsed': collapsed === true, "right-content-all": isNoAccess })}>
+        <div className={cx({ "right-content": true, "right-content-collapsed": collapsed === true, "right-content-all": isNoAccess })}>
 
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item href={authUtils.getHomePath()}>

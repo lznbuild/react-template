@@ -2,12 +2,6 @@ import axios from 'axios'
 import { message } from 'antd'
 import authUtils from './authUtils';
 
-const toggleLoading = (isView) => {
-  if (document.querySelector('#loading-component')) {
-    document.querySelector('#loading-component').style.display = isView ? 'block' : 'none';
-  }
-}
-
 // 创建axios实例
 const service = axios.create({
   timeout: 10000, // 请求超时时间
@@ -17,7 +11,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    toggleLoading(true);
+    NProgress.start();
     let tokenId = authUtils.getTokenId();
     if (typeof tokenId == 'undefined') {
       tokenId = ''
@@ -39,7 +33,7 @@ service.interceptors.request.use(
 // respone拦截器
 service.interceptors.response.use(
   response => {
-    toggleLoading(false);
+    NProgress.done();
     if (response.data.isError) {
       if (response.data.error.codeNumber === 904) {
         message.info(response.data.error.message, 2, () => {
@@ -53,7 +47,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    toggleLoading(false);
+    NProgress.done();
     console.log('err', error)// for debug
     message.error(error.message, 3)
     return Promise.reject(error)

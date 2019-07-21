@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Descriptions } from 'antd';
-import './detail.less';
 import testApi from 'api/test';
+
 const Detail = (props) => {
 
   const [formData, setFormData] = useState({});
 
-  const { id } = props;
+  const { pkInfo } = props;
 
   useEffect(()=>{
-    let params = { id: id };
-    testApi.detail(params).then(res => {
+    testApi.detail(pkInfo).then(res => {
       let data = res.data.data;
-      setFormData(data);
+      if(data){
+        setFormData(data);
+      }
     })
-  },[id]);
+  },[]);
 
   return (
     <Descriptions title="" column={{ xs: 1, sm: 1, md: 2 }}>

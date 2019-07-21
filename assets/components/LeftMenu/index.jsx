@@ -48,8 +48,8 @@ class LeftMenu extends React.Component {
           id={path}
           name={title}
           onClick={this.handleClick}
-          className={cx({ "bw-menu-item": true, 'bw-menu-item-active': this.isActive(value, index) })}>
-          <Icon type="home" style={{ marginRight: '5px' }} />
+          className={cx({ "bw-menu-item": true, "bw-menu-item-active": this.isActive(value, index) })}>
+          <Icon type="home" style={{ marginRight: "5px" }} />
         </li>
       </Tooltip>
       : <li
@@ -57,8 +57,8 @@ class LeftMenu extends React.Component {
         id={path}
         name={title}
         onClick={this.handleClick}
-        className={cx({ "bw-menu-item": true, 'bw-menu-item-active': this.isActive(value, index) })}>
-        <Icon type="home" style={{ marginRight: '5px' }} />
+        className={cx({ "bw-menu-item": true, "bw-menu-item-active": this.isActive(value, index) })}>
+        <Icon type="home" style={{ marginRight: "5px" }} />
         {title}
       </li >
   }
@@ -66,9 +66,9 @@ class LeftMenu extends React.Component {
   render() {
     let { collapsed } = this.props.UI;
     return (
-      <div className={cx({ "left-menu": true, 'left-menu-collapsed': collapsed === true })}>
+      <div className={cx({ "left-menu": true, "left-menu-collapsed": collapsed === true })}>
         <div className="open-menu" onClick={this.toggleCollapsed}>
-          <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
+          <Icon type={collapsed ? "menu-unfold" : "menu-fold"} />
         </div>
         <ul className="bw-menu">
           {this.props.data && this.props.data.map(this.renderMenu)}

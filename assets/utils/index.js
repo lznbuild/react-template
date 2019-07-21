@@ -1,44 +1,4 @@
-export const utils = {
-  //处理menuList数据
-  handleMenuList: (menuList) => {
-    let menuListData = [];
-    if (menuList) {
-      for (let i = 0; i < menuList.length; i++) {
-        let item = {
-          key: menuList[i].meta.icon,
-          item: menuList[i].modTitle
-        }
-        menuListData.push(item);
-      }
-    }
-    return menuListData;
-  },
-  //默认展开部门树选中的第一项
-  openFirstTree: (data) => {
-    let group = {
-      grpname: "",
-      grpno: ""
-    }
-    if (data[0].children.length) {
-      if (data[0].children[0].children.length) {
-        if (data[0].children[0].children[0].length) {
-          group.grpname = data[0].children[0].children[0].children[0].grpname;
-          group.grpno = data[0].children[0].children[0].children[0].grpno;
-        } else {
-          group.grpname = data[0].children[0].children[0] ? data[0].children[0].children[0].grpname : '';
-          group.grpno = data[0].children[0].children[0] ? data[0].children[0].children[0].grpno : '';
-        }
-      } else {
-        group.grpname = data[0].children[0].grpname;
-        group.grpno = data[0].children[0].grpno;
-      }
-    } else {
-      group.grpname = data[0].grpname;
-      group.grpno = data[0].grpno;
-    }
-    return group;
-  },
-
+const utils = {
   getQueryString: (search, name) => {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = search.substr(1).match(reg);
@@ -46,5 +6,21 @@ export const utils = {
       return decodeURI(r[2]);
     }
     return null;
+  },
+
+  isNullOrEmpty: (obj) => {
+    if (!obj || obj.length == 0) {
+      return true;
+    }
+    if (obj instanceof Object) {
+      for (let k in obj) {
+        if (obj[k]) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 }
+export default utils;

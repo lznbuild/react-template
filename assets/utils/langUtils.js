@@ -1,4 +1,4 @@
-const langUtils = (function () {
+const langUtils = (() => {
   let langArray = [
     { lang: 'zh-CN', title: '简体中文' },
     { lang: 'zh-TW', title: '繁体中文' },
@@ -13,7 +13,7 @@ const langUtils = (function () {
       return currentLang;
     },
     changeCurrentLang: (lang) => {
-      if(lang!=currentLang){
+      if (lang != currentLang) {
         localStorage.setItem('et_lang', lang);
         window.location.reload();
       }
