@@ -3,7 +3,7 @@ import { Form, Button, Table, Divider, Drawer, Popconfirm, Icon } from 'antd';
 import TableHoc from 'components/Hoc/tableHoc';
 import Edit from './edit';
 import Detail from './detail';
-import './index.less';
+import '../../../public/css/defaultTable.less';
 import testApi from 'api/test';
 
 const searchFields = [{ name: 'name', title: '用户名', showType: 'input' }];
@@ -85,7 +85,7 @@ class Sub1 extends React.Component {
     const scrollY = window.innerHeight - 280;
 
     return (
-      <div className="sub1">
+      <div className="default-table-page">
         <div className="content">
           <div className="table-container">
             <div className="query-panel">
