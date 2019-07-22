@@ -19,7 +19,7 @@ npm run build
 
 ## 测试访问说明
 
-以下文件中，与接口联调时，请删除
+以下文件中，与接口联调时，请删除测试方法
 
 ```
 /components/Content/index.jsx
