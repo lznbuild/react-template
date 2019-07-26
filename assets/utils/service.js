@@ -5,7 +5,7 @@ import authUtils from './authUtils';
 // 创建axios实例
 const service = axios.create({
   timeout: 10000, // 请求超时时间
-  baseURL: '/api', //请求前缀，根据实际情况修改
+  baseURL: config && config.apiPrefix ? config.apiPrefix : '/api', //请求前缀，根据实际情况修改
 })
 
 // request拦截器
