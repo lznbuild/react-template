@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, message } from 'antd';
+
 const TableHoc = (SubComponent) => {
 
   const pageSizeOptions = ['10', '30', '50', '100'];
@@ -20,20 +21,22 @@ const TableHoc = (SubComponent) => {
     }
 
     componentDidMount() {
-      this.handleResize();
+      window.addEventListener('resize', this.resize, false);
       this.handleSearch();
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.resize);
     }
 
     init = (api) => {
       this.api = api;
     }
 
-    handleResize() {
-      window.addEventListener('resize', () => {
-        this.setState({
-          key: Math.random()
-        });
-      }, false)
+    resize = () => {
+      this.setState({
+        key: Math.random()
+      });
     }
 
     // 选中行
