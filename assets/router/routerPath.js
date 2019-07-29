@@ -14,11 +14,13 @@ const paths = {
           title: '子模块1',
           path: '/mod1/sub1',
           name: 'sub1',
+          icon: 'home'
         },
         {
           title: '子模块2',
           path: '/mod1/sub2',
-          name: 'sub2'
+          name: 'sub2',
+          icon: 'area-chart'
         }
       ]
     },
@@ -29,27 +31,68 @@ const paths = {
       children: [
         {
           title: '子模块1',
-          path: '/mod2/sub1'
+          path: '/mod2/sub1',
+          icon: 'home',
+          children: [
+            {
+              title: '子子模块1',
+              path: '/mod2/sub1/1',
+              icon: 'home',
+
+            },
+            {
+              title: '子子模块2',
+              path: '/mod2/sub1/2',
+              icon: 'home',
+              children: [
+                {
+                  title: '子子模块11',
+                  path: '/mod2/sub1/2/1',
+                  icon: 'home',
+
+                },{
+                  title: '子子模块12',
+                  path: '/mod2/sub1/2/2',
+                  icon: 'home',
+
+                }
+              ]
+            },
+            {
+              title: '子子模块3',
+              path: '/mod2/sub1/3',
+              icon: 'home'
+            },
+            {
+              title: '子子模块4',
+              path: '/mod2/sub1/4',
+              icon: 'home'
+            }
+          ]
         },
         {
           title: '子模块2',
-          path: '/mod2/sub2'
+          path: '/mod2/sub2',
+          icon: 'home'
         },
         {
           title: '子模块3',
-          path: '/mod2/sub3'
+          path: '/mod2/sub3',
+          icon: 'home'
         }
       ]
     },
     {
       title: '项目模块3',
       path: '/mod3',
-      name: 'mod3'
+      name: 'mod3',
+      icon: 'home'
     },
     {
       title: '项目模块4',
       path: '/mod4',
-      name: 'mod4'
+      name: 'mod4',
+      icon: 'home'
     }
   ]
 

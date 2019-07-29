@@ -13,7 +13,7 @@ import logo from '../../public/imgs/logo.png';
 class Header extends React.Component {
   constructor(props) {
     super(props)
-    this.currentModuleTitle = '';
+    this.currentModuleTitle = {};
     this.state = {
       current: this.props.location.pathname,
     }
@@ -26,10 +26,12 @@ class Header extends React.Component {
   }
 
   handlePage = (e) => {
+    let path = e.currentTarget.id;
+    let title = e.currentTarget.getAttribute('name');
     this.props.UI.reset();
-    this.props.Breadcrumb.setValue(0, e.currentTarget.getAttribute('name'));
-    this.props.history.push(e.currentTarget.id);
-    this.setState({ current: e.currentTarget.id });
+    this.props.Breadcrumb.setValue(0, { path, title });
+    this.props.history.push(path);
+    this.setState({ current: path });
   }
 
   handleIndex = (e) => {
@@ -52,7 +54,9 @@ class Header extends React.Component {
 
     const loginMenu = (
       <Menu onClick={this.handleLogout} >
-        <Menu.Item key="signout"><FormattedMessage id={userName == null ? 'login.button' : 'head.logout'} /></Menu.Item>
+        <Menu.Item key="signout">
+          <FormattedMessage id={userName == null ? 'login.button' : 'head.logout'} />
+        </Menu.Item>
       </Menu>
     );
 
@@ -62,12 +66,13 @@ class Header extends React.Component {
         active = true;
       }
       if (active) {
-        this.currentModuleTitle = obj.title;
+        this.currentModuleTitle = { path: obj.path, title: obj.title };
       }
       return active;
     }
 
     const loopNavMap = data => data.map((item, index) => {
+
       return (
         <li
           key={item.path}
@@ -80,6 +85,7 @@ class Header extends React.Component {
         </li>
       );
     });
+
     return (
       <div className="header-component">
         <div className="header-left">

@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router-dom';
-import { Breadcrumb, Icon } from 'antd';
 import authUtils from '../../utils/authUtils';
 import Bundle from 'router/bundle';
+import Breadcrumb from 'components/Breadcrumb';
 import LeftMenu from 'components/LeftMenu';
 import NoAccess from 'components/NoAccess';
 import NotFound from 'components/NotFound';
@@ -11,7 +11,7 @@ import NotFound from 'components/NotFound';
 import './index.less';
 import cx from 'classnames';
 
-@inject('Breadcrumb', 'UI')
+@inject('UI')
 @observer
 class Content extends React.Component {
   constructor(props) {
@@ -36,32 +36,13 @@ class Content extends React.Component {
       return (NotFound);
     }
 
-    const breadcrumbValues = this.props.Breadcrumb.getValues;
-
     return (
       <div className="bw-content">
         {
           !isNoAccess ? <LeftMenu data={children} /> : null
         }
         <div className={cx({ "right-content": true, "right-content-collapsed": collapsed === true, "right-content-all": isNoAccess })}>
-
-          <Breadcrumb className="breadcrumb">
-            <Breadcrumb.Item href={authUtils.getHomePath()}>
-              <Icon type="home" />
-            </Breadcrumb.Item>
-            {
-              breadcrumbValues.map((item, index) => {
-                let cn = 'breadcrumb-item';
-                if (breadcrumbValues.length - 1 === index) {
-                  cn = 'breadcrumb-item-last';
-                }
-                if (item) {
-                  return <Breadcrumb.Item className={cn} key={index}>{item}</Breadcrumb.Item>
-                }
-              })
-            }
-          </Breadcrumb>
-
+          <Breadcrumb />
           <Switch>
             <Route exact path={path} component={getPageComponent(0)} />
             {children && children.map((item, index) => {

@@ -1,56 +1,29 @@
 .left-menu {
-    width: 200px;
-    height: 100%;
-    background: #434B52;
-    color: #A2ABB3;
+  width     : 200px;
+  height    : 100%;
+  background: #434B52;
+  color     : #A2ABB3;
 
-    .open-menu {
-        width: 100%;
-        height: 24px;
-        text-align: center;
-        line-height: 24px;
-        background-image: linear-gradient(-180deg, rgba(32, 34, 41, 0.80) 0%, rgba(28, 35, 42, 0.60) 100%);
-    }
-
-    .bw-menu {
-        width: 100%;
-        height: calc(~'100% - 24px');
-        overflow-y: scroll;
-
-        .bw-menu-item {
-            height: 40px;
-            line-height: 40px;
-            padding-left: 20px;
-        }
-
-        .bw-menu-item-active,
-        .bw-menu-item:hover {
-            color: #fff;
-        }
-
-        .bw-menu-item-active {
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 3px solid#0084FF;
-            padding-left: 17px;
-        }
-
-        li:hover {
-            cursor: pointer;
-        }
-    }
+  .open-menu {
+    width           : 100%;
+    height          : 24px;
+    text-align      : center;
+    line-height     : 24px;
+    background-image: linear-gradient(-180deg, rgba(32, 34, 41, 0.80) 0%, rgba(28, 35, 42, 0.60) 100%);
+  }
 }
 
 .left-menu-collapsed {
-    width: 50px;
+  width: 50px;
+}
 
-    .bw-menu {
-        .bw-menu-item {
-            padding-left: 0;
-            text-align: center;
+.ant-menu-inline-collapsed {
+  width: 50px;
 
-            >span {
-                margin-right: 0;
-            }
-        }
-    }
+  .ant-menu-item,
+  .ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-item,
+  .ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-submenu>.ant-menu-submenu-title,
+  .ant-menu-submenu>.ant-menu-submenu-title {
+    padding: 0 16px !important;
+  }
 }

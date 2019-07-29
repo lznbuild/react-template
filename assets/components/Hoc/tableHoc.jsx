@@ -21,8 +21,8 @@ const TableHoc = (SubComponent) => {
     }
 
     componentDidMount() {
-      window.addEventListener('resize', this.resize, false);
       this.handleSearch();
+      window.addEventListener('resize', this.resize, false);
     }
 
     componentWillUnmount() {
