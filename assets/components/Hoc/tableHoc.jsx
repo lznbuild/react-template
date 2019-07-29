@@ -44,8 +44,8 @@ const TableHoc = (SubComponent) => {
       this.setState({ rowSelectedId: id });
     }
 
-    getRowClassName = (record) => {
-      return record.id === this.state.rowSelectedId ? "row-selected" : "";
+    getRowClassName = (id) => {
+      return id === this.state.rowSelectedId ? "row-selected" : "";
     }
 
     // 切换页码/切换每页展示条数

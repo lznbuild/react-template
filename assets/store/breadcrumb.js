@@ -12,7 +12,11 @@ class Breadcrumb {
     }
     if (crumbArray) {
       if (Array.isArray(crumbArray)) {
-        this.values.splice(index);
+        if(this.values.length===0){
+          index = 0;
+        }else{
+          this.values.splice(index);
+        }
         crumbArray.map((v, i) => {
           this.values[index + i] = v;
         });

@@ -121,7 +121,7 @@ class Sub1 extends React.Component {
                     onClick: () => this.props.setRowSelectedId(record.id)
                   };
                 }}
-                rowClassName={this.props.getRowClassName}
+                rowClassName={(record) => this.props.getRowClassName(record.id)}
               />
             </div>
           </div>
