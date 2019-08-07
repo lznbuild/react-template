@@ -20,7 +20,6 @@ service.interceptors.request.use(
       'Content-Type': 'application/json;charset=utf-8',
       'Authorization': tokenId,
     }
-    // console.info('axios拦截', config)
     return config
   },
   error => {

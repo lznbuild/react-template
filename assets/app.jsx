@@ -1,6 +1,6 @@
 import React from 'react';
 // 多语言
-import { LocaleProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import messages from './lang/index.js';
 import langUtils from './utils/langUtils';
@@ -24,7 +24,7 @@ class App extends React.Component {
   render() {
     const currentLang = langUtils.getCurrentLang();
     return (
-      <LocaleProvider locale={messages[currentLang].antdLocal}>
+      <ConfigProvider locale={messages[currentLang].antdLocal}>
         <IntlProvider locale={currentLang} messages={messages[currentLang].local}>
           <BrowserRouter>
             <Switch>
@@ -33,7 +33,7 @@ class App extends React.Component {
             </Switch>
           </BrowserRouter>
         </IntlProvider>
-      </LocaleProvider>
+      </ConfigProvider>
     )
   }
 }
