@@ -1,5 +1,5 @@
 import service from '../utils/service';
-
+const baseURL = '/api';
 const testApi = {
   addOrUpdate: (isAddHandle, params) => {
     let apiUrl = isAddHandle ? '/test/add' : '/test/update';
@@ -12,7 +12,7 @@ const testApi = {
     return service.post('/test/detail', params)
   },
   list: (params) => {
-    return service.post('/test/list', params)
+    return service.post('/test/list', params, { baseURL })
   },
 
 }
