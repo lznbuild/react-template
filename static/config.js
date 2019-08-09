@@ -1,3 +1,5 @@
 var config = {
-  apiPrefix: '/api'
+  apiPrefix: {
+    default: '/api'
+  }
 }
