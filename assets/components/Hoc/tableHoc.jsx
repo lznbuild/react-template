@@ -105,11 +105,11 @@ const TableHoc = (SubComponent) => {
 
     getFields = (searchFields) => {
       const children = [];
-      const { getFieldDecorator } = this.props.form
+      const { getFieldDecorator } = this.props.form;
       for (let i in searchFields) {
         let { name, title, showType } = searchFields[i];
         children.push(
-          <Form.Item key={searchFields[i]}>
+          <Form.Item key={name}>
             {getFieldDecorator(`${name}`)(<Input placeholder={title} />)}
           </Form.Item>
         );
