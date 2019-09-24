@@ -15,23 +15,23 @@ const LangMenu = () => {
 
   const handleLang = (e) => {
     langUtils.changeCurrentLang(e.key);
-  }
+  };
 
   return (
     <Menu onClick={handleLang}>
       {items}
     </Menu>
   );
-}
+};
 
 const LangDropdown = () => {
   return (
-    <Dropdown overlay={LangMenu} trigger={["click"]}>
+    <Dropdown overlay={LangMenu} trigger={['click']}>
       <span>
         {langUtils.getLangTitle()}<Icon type="down" />
       </span>
     </Dropdown>
   );
-}
+};
 
 export default LangDropdown;

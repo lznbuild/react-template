@@ -5,6 +5,6 @@ const en_US = {
   'login.button': 'log in',
   // 头部
   'head.title': 'Bywin',
-  'head.logout': 'sign out',
-}
-export default en_US
+  'head.logout': 'sign out'
+};
+export default en_US;

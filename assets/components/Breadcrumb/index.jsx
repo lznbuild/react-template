@@ -8,7 +8,7 @@ import './index.less';
 @observer
 class CustomBreadcrumb extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -26,12 +26,12 @@ class CustomBreadcrumb extends React.Component {
               cn = 'breadcrumb-item-last';
             }
             if (item) {
-              return <Breadcrumb.Item className={cn} key={index}>{item.title}</Breadcrumb.Item>
+              return <Breadcrumb.Item className={cn} key={index}>{item.title}</Breadcrumb.Item>;
             }
           })
         }
       </Breadcrumb>
-    )
+    );
   }
 }
 export default CustomBreadcrumb;

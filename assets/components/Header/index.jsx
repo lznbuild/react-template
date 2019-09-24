@@ -12,11 +12,11 @@ import logo from '../../public/imgs/logo.png';
 @observer
 class Header extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.currentModuleTitle = {};
     this.state = {
-      current: this.props.location.pathname,
-    }
+      current: this.props.location.pathname
+    };
   }
 
   handleLogout = (e) => {
@@ -69,7 +69,7 @@ class Header extends React.Component {
         this.currentModuleTitle = { path: obj.path, title: obj.title };
       }
       return active;
-    }
+    };
 
     const loopNavMap = data => data.map((item, index) => {
 
@@ -105,7 +105,7 @@ class Header extends React.Component {
           </Dropdown>
         </div>
       </div>
-    )
+    );
   }
 }
 export default injectIntl(withRouter(Header));

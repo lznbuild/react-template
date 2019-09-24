@@ -13,14 +13,14 @@ let openKeys = [];
 @observer
 class LeftMenu extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.currentModuleTitle = '';
     this.menuData = this.props.data;
   }
 
   componentDidMount() {
     this.props.Breadcrumb.setValue(1, this.currentModuleTitle);
-    console.info('componentDidMount====')
+    console.info('componentDidMount====');
   }
 
   toggleCollapsed = () => {
@@ -43,7 +43,7 @@ class LeftMenu extends React.Component {
   getCrumbValues = (menuData, paths, len) => {
     let crumbArray = [];
     for (let k = len; k >= 0; k--) {
-      console.info(k)
+      console.info(k);
       let menuDataItem = menuData.find(item => item.path === paths[k]);
       if (menuDataItem) {
         crumbArray.push({ path: paths[k], title: menuDataItem.title });
@@ -139,21 +139,21 @@ class LeftMenu extends React.Component {
 
 
   render() {
-    console.info('=====selectKeyArr======')
+    console.info('=====selectKeyArr======');
     const { collapsed } = this.props.UI;
     const { openMenuArr, selectMenuArr } = this.getActiveMenu2(this.menuData);
-    console.info(openMenuArr.map(function(v){return v.path}));
-    const openKeyArr = openMenuArr.map(function(v){return v.path});
-    const selectKeyArr = selectMenuArr.map(function(v){return v.path});
+    console.info(openMenuArr.map(function(v){return v.path;}));
+    const openKeyArr = openMenuArr.map(function(v){return v.path;});
+    const selectKeyArr = selectMenuArr.map(function(v){return v.path;});
     //const { openKeyArr, selectKeyArr } = this.getActiveMenu(this.menuData);
-    console.info(openKeyArr)
-    console.info(selectKeyArr)
+    console.info(openKeyArr);
+    console.info(selectKeyArr);
     //const openKeyArr = this.openKeys;
-    console.info(openKeys)
+    console.info(openKeys);
     return (
-      <div className={cx({ "left-menu": true, "left-menu-collapsed": collapsed === true })}>
+      <div className={cx({ 'left-menu': true, 'left-menu-collapsed': collapsed === true })}>
         <div className="open-menu" onClick={this.toggleCollapsed}>
-          <Icon type={collapsed ? "menu-unfold" : "menu-fold"} />
+          <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
         </div>
         <Menu
           defaultSelectedKeys={selectKeyArr}
@@ -168,7 +168,7 @@ class LeftMenu extends React.Component {
           {this.menuData && this.menuData.map(this.renderMenu)}
         </Menu>
       </div>
-    )
+    );
   }
 }
 export default withRouter(LeftMenu);

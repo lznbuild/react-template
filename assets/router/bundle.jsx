@@ -1,23 +1,23 @@
-import React from 'react'
+import React from 'react';
 
 // 按需加载
 class Bundle extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       // short for "module" but that's a keyword in js, so "mod"
       mod: null
-    }
+    };
   }
 
   componentWillMount() {
     NProgress.start();
-    this.load(this.props)
+    this.load(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.load !== this.props.load) {
-      this.load(nextProps)
+      this.load(nextProps);
     }
   }
 
@@ -29,19 +29,19 @@ class Bundle extends React.Component {
   componentWillUnmount(){
     this.setState = (state,callback)=>{
       return;
-    }
+    };
   }
 
   load(props) {
     this.setState({
       mod: null
-    })
+    });
     props.load((mod) => {
       this.setState({
         // handle both es imports and cjs
         mod: mod.default ? mod.default : mod
-      })
-    })
+      });
+    });
   }
 
   render() {

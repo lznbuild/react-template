@@ -20,7 +20,7 @@ if (module.hot) {
   module.hot.accept('./app', () => {
     const App = require('./app').default;
     renderWithHotReload(App);
-  })
+  });
 }
 
 function renderWithHotReload(RootElement) {
@@ -31,5 +31,5 @@ function renderWithHotReload(RootElement) {
       </Provider>
     </AppContainer>,
     document.getElementById('app')
-  )
+  );
 }

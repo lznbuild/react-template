@@ -4,7 +4,7 @@ import routerPath from 'router/routerPath';
 const NoAccess = () => {
   const handleClick = () => {
     window.location.href = routerPath.app.root;
-  }
+  };
   return (
     <Result
       status="403"
@@ -12,6 +12,6 @@ const NoAccess = () => {
       subTitle="Sorry, you are not authorized to access this page."
       extra={<Button type="primary" onClick={handleClick}>Back Home</Button>}
     />
-  )
-}
+  );
+};
 export default NoAccess;

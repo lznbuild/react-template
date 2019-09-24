@@ -17,7 +17,7 @@ const authUtils = (() => {
     },
 
     logout: () => {
-      loginApi.logout().then(res => {
+      loginApi.logout().then(() => {
         authUtils.clearStorage();
         window.location.href = app.login;
       });
@@ -137,7 +137,7 @@ const authUtils = (() => {
       return mod;
     }
 
-  }
+  };
 })();
 
 export default authUtils;

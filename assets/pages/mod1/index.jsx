@@ -9,7 +9,7 @@ const pageComponents = [Sub1, Sub2];
 
 const Mod1 = () => {
   return (
-    <Content name='mod1' pageComponents={pageComponents} />
-  )
-}
+    <Content name="mod1" pageComponents={pageComponents} />
+  );
+};
 export default Mod1;

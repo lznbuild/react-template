@@ -9,6 +9,6 @@ const Loading = () => {
     <div id="loading-component" className="loading-component">
       <Spin size="large" />
     </div>
-  )
-}
+  );
+};
 export default Loading;

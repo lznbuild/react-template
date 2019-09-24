@@ -6,13 +6,13 @@ const { TextArea } = Input;
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 6 },
+    sm: { span: 6 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 18 },
-  },
-}
+    sm: { span: 18 }
+  }
+};
 const Edit = (props) => {
 
   const [formData, setFormData] = useState({});
@@ -30,7 +30,7 @@ const Edit = (props) => {
         addOrUpdate(values);
       }
     });
-  }
+  };
 
   const addOrUpdate = (values) => {
     let handleTitle = isAddHandle ? '添加' : '编辑';
@@ -42,8 +42,8 @@ const Edit = (props) => {
       } else {
         message.error(`${handleTitle}失败`);
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     if (!isAddHandle) {
@@ -68,8 +68,8 @@ const Edit = (props) => {
           {getFieldDecorator('name', {
             initialValue: formData.name || '',
             rules: [
-              { required: true, message: '名字不能为空!', },
-            ],
+              { required: true, message: '名字不能为空!' }
+            ]
           })(<Input />)}
         </Form.Item>
         <Form.Item label="描述">
@@ -77,9 +77,9 @@ const Edit = (props) => {
             initialValue: formData.desc || '',
             rules: [
               {
-                required: true, message: '描述不能为空!',
-              },
-            ],
+                required: true, message: '描述不能为空!'
+              }
+            ]
           })(<TextArea rows={4} />)}
         </Form.Item>
       </Form>
@@ -93,13 +93,13 @@ const Edit = (props) => {
           textAlign: 'right',
           left: 0,
           background: '#fff',
-          borderRadius: '0 0 4px 4px',
+          borderRadius: '0 0 4px 4px'
         }}
       >
         <Button style={{ marginRight: '10px' }} onClick={() => handleClose(false)}>取消</Button>
         <Button onClick={handleSubmit} type="primary">提交</Button>
       </div>
     </div>
-  )
-}
+  );
+};
 export default Form.create()(Edit);

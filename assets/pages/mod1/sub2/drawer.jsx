@@ -4,9 +4,9 @@ const { TextArea } = Input;
 
 class EditDrawer extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-        }
+        };
     }
 
     handleSubmit = e => {
@@ -28,16 +28,16 @@ class EditDrawer extends React.Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 6 },
+                sm: { span: 6 }
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 18 },
-            },
+                sm: { span: 18 }
+            }
         };
         return (
             <Drawer
-                title='编辑'
+                title="编辑"
                 onClose={() => this.props.close()}
                 visible={visible}
                 width={500}
@@ -47,8 +47,8 @@ class EditDrawer extends React.Component {
                         {getFieldDecorator('name', {
                             initialValue: name || '',
                             rules: [
-                                { required: true, message: '名字不能为空!', },
-                            ],
+                                { required: true, message: '名字不能为空!' }
+                            ]
                         })(<Input />)}
                     </Form.Item>
                     <Form.Item label="描述">
@@ -56,9 +56,9 @@ class EditDrawer extends React.Component {
                             initialValue: desc || '',
                             rules: [
                                 {
-                                    required: true, message: '描述不能为空!',
-                                },
-                            ],
+                                    required: true, message: '描述不能为空!'
+                                }
+                            ]
                         })(<TextArea rows={4} />)}
                     </Form.Item>
                 </Form>
@@ -72,14 +72,14 @@ class EditDrawer extends React.Component {
                         textAlign: 'right',
                         left: 0,
                         background: '#fff',
-                        borderRadius: '0 0 4px 4px',
+                        borderRadius: '0 0 4px 4px'
                     }}
                 >
                     <Button style={{ marginRight: '10px' }} onClick={() => this.props.close()}>取消</Button>
                     <Button onClick={this.handleSubmit} type="primary">提交</Button>
                 </div>
             </Drawer>
-        )
+        );
     }
 }
 export default Form.create()(EditDrawer);

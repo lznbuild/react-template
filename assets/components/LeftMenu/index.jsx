@@ -12,7 +12,7 @@ let currOpenKeys = [];
 @observer
 class LeftMenu extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.menuData = this.props.data;
     this.crumbValues = [];
   }
@@ -94,17 +94,17 @@ class LeftMenu extends React.Component {
     const { collapsed } = this.props.UI;
     const { openMenuArr, selectMenuArr } = this.getActiveMenu(this.menuData);
     this.crumbValues = openMenuArr.concat(selectMenuArr);
-    const openKeyArr = openMenuArr.map(function (v) { return v.path });
-    const selectKeyArr = selectMenuArr.map(function (v) { return v.path });
+    const openKeyArr = openMenuArr.map(function (v) { return v.path; });
+    const selectKeyArr = selectMenuArr.map(function (v) { return v.path; });
 
     if (currOpenKeys.length === 0 && openKeyArr.length > 0) {
       this.setOpenKeys(openKeyArr);
     }
 
     return (
-      <div className={cx({ "left-menu": true, "left-menu-collapsed": collapsed === true })}>
+      <div className={cx({ 'left-menu': true, 'left-menu-collapsed': collapsed === true })}>
         <div className="open-menu" onClick={this.toggleCollapsed}>
-          <Icon type={collapsed ? "menu-unfold" : "menu-fold"} />
+          <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
         </div>
         <Menu
           defaultSelectedKeys={selectKeyArr}
@@ -119,7 +119,7 @@ class LeftMenu extends React.Component {
           {this.menuData && this.menuData.map(this.renderMenu)}
         </Menu>
       </div>
-    )
+    );
   }
 }
 export default withRouter(LeftMenu);

@@ -1,6 +1,6 @@
 import { observable, action, configure } from 'mobx';
 
-configure({ enforceActions: "observed" });
+configure({ enforceActions: 'observed' });
 
 class UI {
   // 左侧展示隐藏

@@ -14,7 +14,7 @@ const Detail = (props) => {
       if(data){
         setFormData(data);
       }
-    })
+    });
   },[]);
 
   return (
@@ -22,6 +22,6 @@ const Detail = (props) => {
       <Descriptions.Item label="姓名">{formData.name || ''}</Descriptions.Item>
       <Descriptions.Item label="描述">{formData.desc || ''}</Descriptions.Item>
     </Descriptions>
-  )
-}
+  );
+};
 export default Detail;

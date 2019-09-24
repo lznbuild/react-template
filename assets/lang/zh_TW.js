@@ -5,6 +5,6 @@ const zh_TW = {
   'login.button': '登录',
   // 头部
   'head.title': '半云科技',
-  'head.logout': '退出登录',
-}
+  'head.logout': '退出登录'
+};
 export default zh_TW;

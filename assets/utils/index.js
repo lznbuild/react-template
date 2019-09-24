@@ -1,6 +1,6 @@
 const utils = {
   getQueryString: (search, name) => {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
     var r = search.substr(1).match(reg);
     if (r != null) {
       return decodeURI(r[2]);
@@ -22,5 +22,5 @@ const utils = {
     }
     return false;
   }
-}
+};
 export default utils;

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "assets/*": [
+        "./assets/components/*"
+      ],
+      "router/*": [
+        "./assets/router/*"
+      ],
+      "store/*": [
+        "./assets/store/*"
+      ],
+      "pages/*": [
+        "./assets/pages/*"
+      ],
+      "api/*": [
+        "./assets/api/*"
+      ],
+      "public/*": [
+        "./assets/public/*"
+      ],
+    }
+  },
+  "include": ["assets"],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

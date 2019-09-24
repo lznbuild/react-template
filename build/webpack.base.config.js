@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const appConfig = require('./app.config.js');
 const srcPath = '../assets/';
-const staticPrefix = process.env.NODE_ENV=='development'?'':appConfig.relativePrefix
+const staticPrefix = process.env.NODE_ENV == 'development' ? '' : appConfig.relativePrefix
 module.exports = {
   entry: {
     app: [
@@ -20,6 +20,7 @@ module.exports = {
       store: path.join(__dirname, srcPath, 'store'),
       pages: path.join(__dirname, srcPath, 'pages'),
       api: path.join(__dirname, srcPath, 'api'),
+      public: path.join(__dirname, srcPath, 'public')
     }
   },
   module: {
@@ -83,7 +84,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'assets/index.html',
       templateParameters: {
-        appPrefix: process.env.NODE_ENV=='development'?'/':appConfig.absolutePrefix
+        appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.absolutePrefix
       }
     }),
     new CleanWebpackPlugin()

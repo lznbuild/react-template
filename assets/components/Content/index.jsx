@@ -15,7 +15,7 @@ import cx from 'classnames';
 @observer
 class Content extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -34,24 +34,24 @@ class Content extends React.Component {
         return (NoAccess);
       }
       return (NotFound);
-    }
+    };
 
     return (
       <div className="bw-content">
         {
           !isNoAccess ? <LeftMenu data={children} /> : null
         }
-        <div className={cx({ "right-content": true, "right-content-collapsed": collapsed === true, "right-content-all": isNoAccess })}>
+        <div className={cx({ 'right-content': true, 'right-content-collapsed': collapsed === true, 'right-content-all': isNoAccess })}>
           <Breadcrumb />
           <Switch>
             <Route exact path={path} component={getPageComponent(0)} />
             {children && children.map((item, index) => {
-              return <Route key={index} path={item.path} component={getPageComponent(oldIndexs[index])} />
+              return <Route key={index} path={item.path} component={getPageComponent(oldIndexs[index])} />;
             })}
           </Switch>
         </div>
       </div>
-    )
+    );
   }
 }
 export default Content;

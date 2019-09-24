@@ -1,6 +1,6 @@
-import { action, computed, configure, observable } from 'mobx'
+import { action, computed, configure, observable } from 'mobx';
 
-configure({ enforceActions: "observed" })
+configure({ enforceActions: 'observed' });
 
 class Breadcrumb {
   //面包屑的数据

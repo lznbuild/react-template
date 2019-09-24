@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.less'
+import './index.less';
 const NoAccess = () => {
   return (
     <div className="except-header-container">
@@ -7,6 +7,6 @@ const NoAccess = () => {
         <div className="no-access-info">无访问权限</div>
       </div>
     </div>
-  )
-}
+  );
+};
 export default NoAccess;

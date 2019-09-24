@@ -6,14 +6,17 @@ const testApi = {
     return service.post(apiUrl, params);
   },
   delete: (params) => {
-    return service.post('/test/delete', params)
+    return service.post('/test/delete', params);
   },
   detail: (params) => {
-    return service.post('/test/detail', params)
+    return service.post('/test/detail', params, { baseURL });
   },
   list: (params) => {
-    return service.post('/test/list', params, { baseURL })
+    return service.post('/test/list', params);
   },
+  getTypes:()=>{
+    return service.get('/test/getTypes');
+  }
 
-}
+};
 export default testApi;

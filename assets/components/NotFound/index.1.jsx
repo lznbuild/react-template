@@ -7,6 +7,6 @@ const NotFound = () => {
     <div className="notfound-component">
       <img src={notfound}/>
     </div>
-  )
-}
+  );
+};
 export default NotFound;

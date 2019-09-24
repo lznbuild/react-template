@@ -4,9 +4,9 @@ const { TextArea } = Input;
 
 class AddModal extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-        }
+        };
     }
 
     handleSubmit = e => {
@@ -26,12 +26,12 @@ class AddModal extends React.Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 6 },
+                sm: { span: 6 }
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 18 },
-            },
+                sm: { span: 18 }
+            }
         };
         return (
             <Modal
@@ -46,21 +46,21 @@ class AddModal extends React.Component {
                         {getFieldDecorator('name', {
                             initialValue: name || '',
                             rules: [
-                                { required: true, message: '名字不能为空!', },
-                            ],
+                                { required: true, message: '名字不能为空!' }
+                            ]
                         })(<Input />)}
                     </Form.Item>
                     <Form.Item label="描述">
                         {getFieldDecorator('desc', {
                             initialValue: desc || '',
                             rules: [
-                                { required: true, message: '描述不能为空!', },
-                            ],
+                                { required: true, message: '描述不能为空!' }
+                            ]
                         })(<TextArea rows={4} />)}
                     </Form.Item>
                 </Form>
             </Modal>
-        )
+        );
     }
 }
 export default Form.create()(AddModal);

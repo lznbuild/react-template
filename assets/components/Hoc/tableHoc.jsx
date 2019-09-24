@@ -16,8 +16,8 @@ const TableHoc = (SubComponent) => {
         total: 0,
         dataSource: [],
         rowSelectedId: ''
-      }
-      this.api = {}
+      };
+      this.api = {};
     }
 
     componentDidMount() {
@@ -45,7 +45,7 @@ const TableHoc = (SubComponent) => {
     }
 
     getRowClassName = (id) => {
-      return id === this.state.rowSelectedId ? "row-selected" : "";
+      return id === this.state.rowSelectedId ? 'row-selected' : '';
     }
 
     // 切换页码/切换每页展示条数
@@ -74,7 +74,7 @@ const TableHoc = (SubComponent) => {
           const { total, rows } = data;
           this.setState({ total, page, dataSource: rows });
         }
-      })
+      });
     }
 
     getPage = (status) => {
@@ -100,7 +100,7 @@ const TableHoc = (SubComponent) => {
         } else {
           message.error('删除失败');
         }
-      })
+      });
     }
 
     getFields = (searchFields) => {
@@ -135,13 +135,13 @@ const TableHoc = (SubComponent) => {
           total: this.state.total,
           dataSource: this.state.dataSource
         }
-      }
+      };
 
       return (
         <SubComponent {...props} ></SubComponent>
-      )
+      );
     }
-  }
-}
+  };
+};
 
 export default TableHoc;

@@ -34,7 +34,7 @@ class App extends React.Component {
           </BrowserRouter>
         </IntlProvider>
       </ConfigProvider>
-    )
+    );
   }
 }
 export default App;

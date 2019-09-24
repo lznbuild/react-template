@@ -6,6 +6,6 @@ const zh_CN = {
   // 头部
   'head.title': '半云科技',
   'head.logout': '退出登录',
-  'head.nologin': '未登录',
-}
-export default zh_CN
+  'head.nologin': '未登录'
+};
+export default zh_CN;

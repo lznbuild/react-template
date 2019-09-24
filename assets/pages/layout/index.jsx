@@ -27,7 +27,7 @@ const Layout = () => {
       return modules[0].children[0].path;
     }
     return modules[0].path;
-  }
+  };
 
   //TODO 测试使用
   authUtils.testSetModuleRoles();
@@ -51,13 +51,13 @@ const Layout = () => {
             render={() => <Redirect to={getRootRedirect(newModules)}></Redirect>}
           />
           {newModules.map((item, index) => {
-            return <Route key={index} path={item.path} component={Bundle(pageComponents[oldIndexs[index]])} />
+            return <Route key={index} path={item.path} component={Bundle(pageComponents[oldIndexs[index]])} />;
           })}
           <Route component={NotFound} />
         </Switch>
         : <NoAccess />
       }
     </div>
-  )
-}
+  );
+};
 export default Layout;

@@ -3,9 +3,9 @@ import { Drawer, Descriptions } from 'antd';
 
 class DetailDrawer extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-        }
+        };
     }
 
     render() {
@@ -24,7 +24,7 @@ class DetailDrawer extends React.Component {
                     <Descriptions.Item label="描述">{desc || ''}</Descriptions.Item>
                 </Descriptions>
             </Drawer >
-        )
+        );
     }
 }
 export default DetailDrawer;

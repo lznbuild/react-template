@@ -17,7 +17,7 @@ const messages = {
   'en-US': {
     local: en_US,
     antdLocal: antdEN
-  },
-}
+  }
+};
 
-export default messages
+export default messages;

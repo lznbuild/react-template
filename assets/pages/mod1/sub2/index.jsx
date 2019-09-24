@@ -8,7 +8,7 @@ import testApi from 'api/test';
 
 class Sub2 extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       key: 1,
       page: 1,
@@ -21,7 +21,7 @@ class Sub2 extends React.Component {
       addVisible: false,
       editVisible: false,
       rowSelectedId: ''
-    }
+    };
   }
 
   initScrollY() {
@@ -29,7 +29,7 @@ class Sub2 extends React.Component {
       this.setState({
         key: Math.random()
       });
-    }, false)
+    }, false);
   }
 
   getList = (page = 1, rows = 2, searchValue) => {
@@ -40,7 +40,7 @@ class Sub2 extends React.Component {
         const { total, rows } = data;
         this.setState({ total, dataSource: rows });
       }
-    })
+    });
   }
 
   componentDidMount() {
@@ -68,7 +68,7 @@ class Sub2 extends React.Component {
     testApi.detail(params).then(res => {
       let data = res.data.data;
       this.setState({ detailVisible: true, detail: data });
-    })
+    });
   }
 
   // 增加接口
@@ -82,7 +82,7 @@ class Sub2 extends React.Component {
       } else {
         message.error('添加失败');
       }
-    })
+    });
   }
   // 编辑接口
   editSubmit = (values) => {
@@ -95,7 +95,7 @@ class Sub2 extends React.Component {
       } else {
         message.error('编辑失败');
       }
-    })
+    });
   }
   // 删除接口
   confirmDelete = (record) => {
@@ -108,15 +108,16 @@ class Sub2 extends React.Component {
       } else {
         message.error('删除失败');
       }
-    })
+    });
   }
   // 选中行
   setRowClassName = (record) => {
     const { rowSelectedId } = this.state;
-    return record.id === rowSelectedId ? "row-selected" : "";
+    return record.id === rowSelectedId ? 'row-selected' : '';
   }
 
   render() {
+    console.info('渲染2=========');
     const scrollY = window.innerHeight - 280;
     const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail, searchValue } = this.state;
     const columns = [
@@ -124,13 +125,13 @@ class Sub2 extends React.Component {
         title: '姓名',
         dataIndex: 'name',
         key: 'name',
-        width: 200,
+        width: 200
       },
       {
         title: '描述',
         dataIndex: 'desc',
         key: 'desc',
-        width: 200,
+        width: 200
       },
       {
         title: '操作',
@@ -146,7 +147,7 @@ class Sub2 extends React.Component {
             <Popconfirm
               placement="left"
               icon={<Icon type="question-circle" theme="filled" style={{ color: '#F63A43' }} />}
-              title={`确定要删除吗?`}
+              title={'确定要删除吗?'}
               onConfirm={() => this.confirmDelete(record)}
               okText="确定"
               cancelText="取消"
@@ -155,7 +156,7 @@ class Sub2 extends React.Component {
             </Popconfirm>
           </span>
         )
-      },
+      }
     ];
     return (
       <div className="sub1">
@@ -190,7 +191,7 @@ class Sub2 extends React.Component {
                   onShowSizeChange: this.pageRowsChange,
                   showTotal: total => `共${total}条`,
                   showQuickJumper: true,
-                  onChange: this.pageRowsChange,
+                  onChange: this.pageRowsChange
                 }}
                 onRow={(record) => {//表格行点击事件
                   return {
@@ -206,7 +207,7 @@ class Sub2 extends React.Component {
           addVisible ?
             <AddModal
               visible={addVisible}
-              close={() => { this.setState({ addVisible: false }) }}
+              close={() => { this.setState({ addVisible: false }); }}
               detail={detail}
               handleSubmit={this.addSubmit}
             />
@@ -216,7 +217,7 @@ class Sub2 extends React.Component {
           editVisible ?
             <EditDrawer
               visible={editVisible}
-              close={() => { this.setState({ editVisible: false }) }}
+              close={() => { this.setState({ editVisible: false }); }}
               detail={detail}
               handleSubmit={this.editSubmit}
             />
@@ -226,13 +227,13 @@ class Sub2 extends React.Component {
           detailVisible ?
             <DetailDrawer
               visible={detailVisible}
-              close={() => { this.setState({ detailVisible: false }) }}
+              close={() => { this.setState({ detailVisible: false }); }}
               detail={detail}
             />
             : null
         }
       </div>
-    )
+    );
   }
 }
 export default Sub2;

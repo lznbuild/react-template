@@ -3,5 +3,5 @@ import UI from './ui';
 
 export default {
   Breadcrumb,
-  UI,
-}
+  UI
+};

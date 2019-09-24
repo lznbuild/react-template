@@ -23,7 +23,7 @@ const Login = () => {
       }
     }) */
 
-  }
+  };
 
   return (
     <div className="login-component">
@@ -39,11 +39,11 @@ const Login = () => {
             prefix={
               <Icon
                 type="user"
-                style={{ fontSize: "20px", color: "#9F9F9F" }}
+                style={{ fontSize: '20px', color: '#9F9F9F' }}
               />
             }
             type="text"
-            onChange={(e) => { setUsername(e.target.value) }}
+            onChange={(e) => { setUsername(e.target.value); }}
             placeholder="请输入用户名"
             value={username}
           />
@@ -52,11 +52,11 @@ const Login = () => {
             prefix={
               <Icon
                 type="lock"
-                style={{ fontSize: "20px", color: "#9F9F9F" }}
+                style={{ fontSize: '20px', color: '#9F9F9F' }}
               />
             }
             type="password"
-            onChange={(e) => { setPwd(e.target.value) }}
+            onChange={(e) => { setPwd(e.target.value); }}
             placeholder="请输入密码"
             value={pwd}
           />
@@ -70,5 +70,5 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 export default injectIntl(Login);
