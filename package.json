@@ -77,8 +77,7 @@
   },
   "lint-staged": {
     "assets/**/*.{js,jsx}": [
-      "npm run lint",
-      "git add ."
+      "npm run lint"
     ]
   }
 }
