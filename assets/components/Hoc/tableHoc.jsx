@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import { Form, Input, message } from 'antd';
 
 const TableHoc = (SubComponent) => {
-
   const pageSizeOptions = ['10', '30', '50', '100'];
 
   return class extends Component {
-
     constructor(props) {
       super(props);
       this.state = {
         key: 1,
         page: 1,
-        pageSize: Number.parseInt(pageSizeOptions[0]),
+        pageSize: Number.parseInt(pageSizeOptions[0], 10),
         total: 0,
         dataSource: [],
         rowSelectedId: ''
@@ -44,9 +42,7 @@ const TableHoc = (SubComponent) => {
       this.setState({ rowSelectedId: id });
     }
 
-    getRowClassName = (id) => {
-      return id === this.state.rowSelectedId ? 'row-selected' : '';
-    }
+    getRowClassName = (id) => (id === this.state.rowSelectedId ? 'row-selected' : '')
 
     // 切换页码/切换每页展示条数
     pageRowsChange = (page, pageSize) => {
@@ -57,11 +53,11 @@ const TableHoc = (SubComponent) => {
 
     //del删除，update更新，add增加, search查询
     handleSearch = (status) => {
-      let page = this.getPage(status);
-      let params = { page: page, rows: this.state.pageSize };
+      const page = this.getPage(status);
+      const params = { page, rows: this.state.pageSize };
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          for (let k in values) {
+          for (const k in values) {
             if (values[k]) {
               params[k] = values[k];
             }
@@ -69,7 +65,7 @@ const TableHoc = (SubComponent) => {
         }
       });
       this.api.list(params).then(res => {
-        let data = res.data.data;
+        const { data } = res.data;
         if (data) {
           const { total, rows } = data;
           this.setState({ total, page, dataSource: rows });
@@ -78,11 +74,12 @@ const TableHoc = (SubComponent) => {
     }
 
     getPage = (status) => {
-      let { page, pageSize, total } = this.state;
+      let { page } = this.state;
+      const { pageSize, total } = this.state;
       if (status) {
         if (status === 'del') {
           if ((total + pageSize - 1) === page * pageSize) {
-            page = page - 1;
+            page -= 1;
           }
         } else if (status !== 'update') {
           page = 1;
@@ -104,16 +101,12 @@ const TableHoc = (SubComponent) => {
     }
 
     getFields = (searchFields) => {
-      const children = [];
       const { getFieldDecorator } = this.props.form;
-      for (let i in searchFields) {
-        let { name, title, showType } = searchFields[i];
-        children.push(
-          <Form.Item key={name}>
-            {getFieldDecorator(`${name}`)(<Input placeholder={title} />)}
-          </Form.Item>
-        );
-      }
+      const children = searchFields.map(({ name, title }) => (
+        <Form.Item key={name}>
+          {getFieldDecorator(`${name}`)(<Input placeholder={title} />)}
+        </Form.Item>
+      ));
       return children;
     }
 
@@ -131,14 +124,14 @@ const TableHoc = (SubComponent) => {
         tableInfo: {
           page: this.state.page,
           pageSize: this.state.pageSize,
-          pageSizeOptions: pageSizeOptions,
+          pageSizeOptions,
           total: this.state.total,
           dataSource: this.state.dataSource
         }
       };
 
       return (
-        <SubComponent {...props} ></SubComponent>
+        <SubComponent {...props} />
       );
     }
   };

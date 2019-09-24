@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Icon, Input } from 'antd';
 import LangDropdown from 'components/LangDropdown';
-import loginApi from '../../api/login';
-import authUtils from '../../utils/authUtils';
-import logo from '../../public/imgs/logo.png';
+// import loginApi from 'api/login';
+import authUtils from 'utils/authUtils';
+import logo from 'public/imgs/logo.png';
 import './index.less';
 
 const Login = () => {
@@ -12,7 +12,7 @@ const Login = () => {
   const [pwd, setPwd] = useState('');
 
   const handleSubmit = () => {
-    let params = { username, pwd };
+    const params = { username, pwd };
 
     //测试使用
     authUtils.testLogin(params);
@@ -22,7 +22,6 @@ const Login = () => {
         authUtils.login(res.data.data);
       }
     }) */
-
   };
 
   return (
@@ -36,12 +35,12 @@ const Login = () => {
         <Input.Group>
           <Input
             size="large"
-            prefix={
+            prefix={(
               <Icon
                 type="user"
                 style={{ fontSize: '20px', color: '#9F9F9F' }}
               />
-            }
+)}
             type="text"
             onChange={(e) => { setUsername(e.target.value); }}
             placeholder="请输入用户名"
@@ -49,12 +48,12 @@ const Login = () => {
           />
           <Input.Password
             size="large"
-            prefix={
+            prefix={(
               <Icon
                 type="lock"
                 style={{ fontSize: '20px', color: '#9F9F9F' }}
               />
-            }
+)}
             type="password"
             onChange={(e) => { setPwd(e.target.value); }}
             placeholder="请输入密码"
@@ -63,7 +62,7 @@ const Login = () => {
         </Input.Group>
         <Button type="primary" className="submit" onClick={handleSubmit}>
           登录
-          </Button>
+        </Button>
       </div>
       <div className="lang">
         <LangDropdown />

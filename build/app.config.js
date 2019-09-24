@@ -1,4 +1,4 @@
 module.exports = {
-  absolutePrefix : '/',
-  relativePrefix: ''
+  absolutePrefix : '/app/app-name/',
+  relativePrefix: 'app/app-name/'
 }

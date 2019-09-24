@@ -12,17 +12,6 @@ import store from 'store/index';
 
 import App from './app';
 
-/*初始化*/
-renderWithHotReload(App);
-
-/*热更新*/
-if (module.hot) {
-  module.hot.accept('./app', () => {
-    const App = require('./app').default;
-    renderWithHotReload(App);
-  });
-}
-
 function renderWithHotReload(RootElement) {
   ReactDom.render(
     <AppContainer>
@@ -32,4 +21,15 @@ function renderWithHotReload(RootElement) {
     </AppContainer>,
     document.getElementById('app')
   );
+}
+
+/*初始化*/
+renderWithHotReload(App);
+
+/*热更新*/
+if (module.hot) {
+  module.hot.accept('./app', () => {
+    const App = require('./app').default;
+    renderWithHotReload(App);
+  });
 }

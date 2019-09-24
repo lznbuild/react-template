@@ -2,11 +2,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
-import { Avatar, Dropdown, Icon, Menu } from 'antd';
+import {
+  Avatar, Dropdown, Icon, Menu
+} from 'antd';
 import cx from 'classnames';
-import authUtils from '../../utils/authUtils';
+import authUtils from 'utils/authUtils';
 import './index.less';
-import logo from '../../public/imgs/logo.png';
+import logo from 'public/imgs/logo.png';
 
 @inject('Breadcrumb', 'UI')
 @observer
@@ -20,14 +22,14 @@ class Header extends React.Component {
   }
 
   handleLogout = (e) => {
-    if (e.key == 'signout') {
+    if (e.key === 'signout') {
       authUtils.logout();
     }
   }
 
   handlePage = (e) => {
-    let path = e.currentTarget.id;
-    let title = e.currentTarget.getAttribute('name');
+    const path = e.currentTarget.id;
+    const title = e.currentTarget.getAttribute('name');
     this.props.UI.reset();
     this.props.Breadcrumb.setValue(0, { path, title });
     this.props.history.push(path);
@@ -35,7 +37,7 @@ class Header extends React.Component {
   }
 
   handleIndex = (e) => {
-    let currentRoute = this.props.location.pathname;
+    const currentRoute = this.props.location.pathname;
     if (currentRoute !== e.target.id) {
       window.location.href = e.target.id;
     }
@@ -47,13 +49,13 @@ class Header extends React.Component {
 
   render() {
     const { current } = this.state;
-    const modules = this.props.modules;
+    const { modules } = this.props;
 
     const userName = authUtils.getUserName();
     const homePath = authUtils.getHomePath();
 
     const loginMenu = (
-      <Menu onClick={this.handleLogout} >
+      <Menu onClick={this.handleLogout}>
         <Menu.Item key="signout">
           <FormattedMessage id={userName == null ? 'login.button' : 'head.logout'} />
         </Menu.Item>
@@ -61,8 +63,8 @@ class Header extends React.Component {
     );
 
     const isActive = (obj, index) => {
-      let active = current.indexOf(obj.path) != -1;
-      if (!active && index === 0 && homePath == current) {
+      let active = current.indexOf(obj.path) !== -1;
+      if (!active && index === 0 && homePath === current) {
         active = true;
       }
       if (active) {
@@ -71,20 +73,17 @@ class Header extends React.Component {
       return active;
     };
 
-    const loopNavMap = data => data.map((item, index) => {
-
-      return (
-        <li
-          key={item.path}
-          id={item.path}
-          name={item.title}
-          className={cx({ 'active': isActive(item, index) })}
-          onClick={this.handlePage}
-        >
-          {item.title}
-        </li>
-      );
-    });
+    const loopNavMap = data => data.map((item, index) => (
+      <li
+        key={item.path}
+        id={item.path}
+        name={item.title}
+        className={cx({ active: isActive(item, index) })}
+        onClick={this.handlePage}
+      >
+        {item.title}
+      </li>
+    ));
 
     return (
       <div className="header-component">
@@ -98,7 +97,7 @@ class Header extends React.Component {
         <div className="header-right">
           <Dropdown overlay={loginMenu} trigger={['click']}>
             <span>
-              <Avatar size="small" style={{ color: '#fff', backgroundColor: '#1C1D22' }} icon="user"></Avatar>
+              <Avatar size="small" style={{ color: '#fff', backgroundColor: '#1C1D22' }} icon="user" />
               <span style={{ color: '#fff', fontSize: '14px', margin: '0 3px' }}>{userName || <FormattedMessage id="head.nologin" />}</span>
               <Icon type="down" />
             </span>

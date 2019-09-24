@@ -3,19 +3,18 @@ import { Descriptions } from 'antd';
 import testApi from 'api/test';
 
 const Detail = (props) => {
-
   const [formData, setFormData] = useState({});
 
   const { pkInfo } = props;
 
-  useEffect(()=>{
+  useEffect(() => {
     testApi.detail(pkInfo).then(res => {
-      let data = res.data.data;
-      if(data){
+      const { data } = res.data;
+      if (data) {
         setFormData(data);
       }
     });
-  },[]);
+  }, []);
 
   return (
     <Descriptions title="" column={{ xs: 1, sm: 1, md: 2 }}>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router-dom';
-import authUtils from '../../utils/authUtils';
 import Bundle from 'router/bundle';
 import Breadcrumb from 'components/Breadcrumb';
 import LeftMenu from 'components/LeftMenu';
@@ -10,14 +9,11 @@ import NotFound from 'components/NotFound';
 
 import './index.less';
 import cx from 'classnames';
+import authUtils from '../../utils/authUtils';
 
 @inject('UI')
 @observer
 class Content extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { collapsed } = this.props.UI;
     const { name, pageComponents } = this.props;
@@ -45,9 +41,7 @@ class Content extends React.Component {
           <Breadcrumb />
           <Switch>
             <Route exact path={path} component={getPageComponent(0)} />
-            {children && children.map((item, index) => {
-              return <Route key={index} path={item.path} component={getPageComponent(oldIndexs[index])} />;
-            })}
+            {children && children.map((item, index) => <Route key={index} path={item.path} component={getPageComponent(oldIndexs[index])} />)}
           </Switch>
         </div>
       </div>

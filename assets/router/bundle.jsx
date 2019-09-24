@@ -27,7 +27,7 @@ class Bundle extends React.Component {
 
   //solved problem: Can't perform a React state update on an unmounted component
   componentWillUnmount(){
-    this.setState = (state,callback)=>{
+    this.setState = ()=>{
       return;
     };
   }

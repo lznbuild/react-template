@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "assets/*": [
@@ -16,6 +17,9 @@
       ],
       "api/*": [
         "./assets/api/*"
+      ],
+      "utils/*": [
+        "./assets/utils/*"
       ],
       "public/*": [
         "./assets/public/*"

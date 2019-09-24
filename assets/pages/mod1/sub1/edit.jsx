@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import utils from '../../../utils';
 import testApi from 'api/test';
+import utils from 'utils';
+
 const { TextArea } = Input;
 const formItemLayout = {
   labelCol: {
@@ -14,7 +15,6 @@ const formItemLayout = {
   }
 };
 const Edit = (props) => {
-
   const [formData, setFormData] = useState({});
 
   const { pkInfo, handleClose } = props;
@@ -23,18 +23,9 @@ const Edit = (props) => {
 
   const isAddHandle = utils.isNullOrEmpty(pkInfo);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        addOrUpdate(values);
-      }
-    });
-  };
-
   const addOrUpdate = (values) => {
-    let handleTitle = isAddHandle ? '添加' : '编辑';
-    let status = isAddHandle ? 'add' : 'update';
+    const handleTitle = isAddHandle ? '添加' : '编辑';
+    const status = isAddHandle ? 'add' : 'update';
     testApi.addOrUpdate(isAddHandle, values).then(res => {
       if (res.data.data !== 0) {
         message.success(`${handleTitle}成功`);
@@ -45,10 +36,19 @@ const Edit = (props) => {
     });
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        addOrUpdate(values);
+      }
+    });
+  };
+
   useEffect(() => {
     if (!isAddHandle) {
       testApi.detail(pkInfo).then(res => {
-        let data = res.data.data;
+        const { data } = res.data;
         if (data) {
           setFormData(data);
         }

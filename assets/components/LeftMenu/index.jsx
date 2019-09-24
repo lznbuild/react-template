@@ -26,7 +26,7 @@ class LeftMenu extends React.Component {
   }
 
   handleClick = (menuItem) => {
-    let { keyPath } = menuItem;
+    const { keyPath } = menuItem;
     this.props.history.push(keyPath[0]);
   }
 
@@ -35,17 +35,17 @@ class LeftMenu extends React.Component {
   }
 
   getActiveMenu = (menuData) => {
-    let menuProps = { openMenuArr: [], selectMenuArr: [] };
-    let currentPath = window.location.pathname;
-    let menuDataItem = menuData.find(item => currentPath.indexOf(item.path) != -1);
+    const menuProps = { openMenuArr: [], selectMenuArr: [] };
+    const currentPath = window.location.pathname;
+    let menuDataItem = menuData.find(item => currentPath.indexOf(item.path) !== -1);
     if (!menuDataItem) {
-      menuDataItem = menuData[0];
+      [menuDataItem] = menuData;
     }
-    let path = menuDataItem.path;
-    let title = menuDataItem.title;
+    const { path } = menuDataItem;
+    const { title } = menuDataItem;
     if (menuDataItem.children) {
       menuProps.openMenuArr.push({ path, title });
-      let subMenuProps = this.getActiveMenu(menuDataItem.children);
+      const subMenuProps = this.getActiveMenu(menuDataItem.children);
       menuProps.openMenuArr = menuProps.openMenuArr.concat(subMenuProps.openMenuArr);
       if (subMenuProps.selectMenuArr.length > 0) {
         menuProps.selectMenuArr = menuProps.selectMenuArr.concat(subMenuProps.selectMenuArr);
@@ -53,38 +53,37 @@ class LeftMenu extends React.Component {
         menuProps.selectMenuArr.push({ path, title });
       }
     } else {
-      menuProps.selectMenuArr.push({ path: path, title });
+      menuProps.selectMenuArr.push({ path, title });
     }
     return menuProps;
   }
 
-  renderMenu = (value, index) => {
-    let menuArray = [];
-    let { path, title, children, icon = 'home' } = value;
+  renderMenu = (value) => {
+    const menuArray = [];
+    const {
+      path, title, children, icon = 'home'
+    } = value;
     if (children && children.length > 0) {
-      let subChildren = [];
-      children.map((v, i) => {
-        subChildren.push(this.renderMenu(v, i));
-      });
+      const subChildren = children.map(this.renderMenu);
       menuArray.push(
         <SubMenu
           key={path}
-          title={
+          title={(
             <span>
               <Icon type={icon} />
               <span>{title}</span>
             </span>
-          }
+)}
         >
           {subChildren}
-        </SubMenu>
+        </SubMenu>,
       );
     } else {
       menuArray.push(
         <Menu.Item key={path}>
           <Icon type={icon} />
           <span>{title}</span>
-        </Menu.Item>
+        </Menu.Item>,
       );
     }
     return menuArray;
@@ -94,8 +93,8 @@ class LeftMenu extends React.Component {
     const { collapsed } = this.props.UI;
     const { openMenuArr, selectMenuArr } = this.getActiveMenu(this.menuData);
     this.crumbValues = openMenuArr.concat(selectMenuArr);
-    const openKeyArr = openMenuArr.map(function (v) { return v.path; });
-    const selectKeyArr = selectMenuArr.map(function (v) { return v.path; });
+    const openKeyArr = openMenuArr.map((v) => v.path);
+    const selectKeyArr = selectMenuArr.map((v) => v.path);
 
     if (currOpenKeys.length === 0 && openKeyArr.length > 0) {
       this.setOpenKeys(openKeyArr);

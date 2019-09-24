@@ -1,16 +1,18 @@
 import React from 'react';
-import { Button, Input, Table, Divider, Popconfirm, Icon, message } from 'antd';
+import {
+  Button, Input, Table, Divider, Popconfirm, Icon, message
+} from 'antd';
+import testApi from 'api/test';
 import EditDrawer from './drawer';
 import AddModal from './modal';
 import DetailDrawer from './detail';
 import './index.less';
-import testApi from 'api/test';
 
 class Sub2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 1,
+      // key: 1,
       page: 1,
       rows: 2,
       total: 0,
@@ -25,23 +27,27 @@ class Sub2 extends React.Component {
   }
 
   initScrollY() {
-    window.addEventListener('resize', () => {
-      this.setState({
-        key: Math.random()
-      });
-    }, false);
+    window.addEventListener(
+      'resize',
+      () => {
+        // this.setState({
+        //   key: Math.random(),
+        // });
+      },
+      false,
+    );
   }
 
   getList = (page = 1, rows = 2, searchValue) => {
-    let params = { page, rows, name: searchValue };
+    const params = { page, rows, name: searchValue };
     testApi.list(params).then(res => {
-      let data = res.data.data;
+      const { data } = res.data;
       if (data) {
-        const { total, rows } = data;
-        this.setState({ total, dataSource: rows });
+        const { total, rows: dataSource } = data;
+        this.setState({ total, dataSource });
       }
     });
-  }
+  };
 
   componentDidMount() {
     this.getList();
@@ -53,26 +59,24 @@ class Sub2 extends React.Component {
     const { searchValue } = this.state;
     this.setState({ page, rows });
     this.getList(page, rows, searchValue);
-  }
+  };
 
   componentWillUnmount() {
     // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
-    this.setState = (state, callback) => {
-      return;
-    };
+    this.setState = () => {};
   }
 
   // 详情接口
-  handleDetail = (record) => {
-    let params = { id: record.id };
+  handleDetail = record => {
+    const params = { id: record.id };
     testApi.detail(params).then(res => {
-      let data = res.data.data;
+      const { data } = res.data;
       this.setState({ detailVisible: true, detail: data });
     });
-  }
+  };
 
   // 增加接口
-  addSubmit = (values) => {
+  addSubmit = values => {
     testApi.add(values).then(res => {
       if (res.data.data !== 0) {
         message.success('添加成功');
@@ -83,9 +87,10 @@ class Sub2 extends React.Component {
         message.error('添加失败');
       }
     });
-  }
+  };
+
   // 编辑接口
-  editSubmit = (values) => {
+  editSubmit = values => {
     testApi.update(values).then(res => {
       if (res.data.data !== 0) {
         message.success('编辑成功');
@@ -96,10 +101,11 @@ class Sub2 extends React.Component {
         message.error('编辑失败');
       }
     });
-  }
+  };
+
   // 删除接口
-  confirmDelete = (record) => {
-    let params = { id: record.id };
+  confirmDelete = record => {
+    const params = { id: record.id };
     testApi.delete(params).then(res => {
       if (res.data.data !== 0) {
         message.success('删除成功');
@@ -109,17 +115,27 @@ class Sub2 extends React.Component {
         message.error('删除失败');
       }
     });
-  }
+  };
+
   // 选中行
-  setRowClassName = (record) => {
+  setRowClassName = record => {
     const { rowSelectedId } = this.state;
     return record.id === rowSelectedId ? 'row-selected' : '';
-  }
+  };
 
   render() {
-    console.info('渲染2=========');
     const scrollY = window.innerHeight - 280;
-    const { page, rows, total, dataSource, addVisible, editVisible, detailVisible, detail, searchValue } = this.state;
+    const {
+      page,
+      rows,
+      total,
+      dataSource,
+      addVisible,
+      editVisible,
+      detailVisible,
+      detail,
+      searchValue
+    } = this.state;
     const columns = [
       {
         title: '姓名',
@@ -140,19 +156,19 @@ class Sub2 extends React.Component {
         width: 200,
         render: (text, record) => (
           <span>
-            <a href="javascript:;" onClick={() => this.setState({ editVisible: true, detail: record })}>编辑</a>
+            <a onClick={() => this.setState({ editVisible: true, detail: record })}>编辑</a>
             <Divider type="vertical" />
-            <a href="javascript:;" onClick={() => this.handleDetail(record)}>详情</a>
+            <a onClick={() => this.handleDetail(record)}>详情</a>
             <Divider type="vertical" />
             <Popconfirm
               placement="left"
               icon={<Icon type="question-circle" theme="filled" style={{ color: '#F63A43' }} />}
-              title={'确定要删除吗?'}
+              title="确定要删除吗?"
               onConfirm={() => this.confirmDelete(record)}
               okText="确定"
               cancelText="取消"
             >
-              <a href="javascript:;">删除</a>
+              <a>删除</a>
             </Popconfirm>
           </span>
         )
@@ -170,10 +186,17 @@ class Sub2 extends React.Component {
                   style={{ width: '200px', marginRight: '10px' }}
                   onChange={e => this.setState({ searchValue: e.target.value })}
                 />
-                <Button type="primary" ghost onClick={() => this.getList(1, rows, searchValue)}>查询</Button>
+                <Button type="primary" ghost onClick={() => this.getList(1, rows, searchValue)}>
+                  查询
+                </Button>
               </span>
               <span>
-                <Button type="primary" onClick={() => this.setState({ addVisible: true, detail: {} })}>添加</Button>
+                <Button
+                  type="primary"
+                  onClick={() => this.setState({ addVisible: true, detail: {} })}
+                >
+                  添加
+                </Button>
               </span>
             </div>
             <div className="table-pagination">
@@ -185,53 +208,53 @@ class Sub2 extends React.Component {
                 pagination={{
                   current: page,
                   pageSize: rows,
-                  total: total,
+                  total,
                   pageSizeOptions: ['2', '10', '30', '50'],
                   showSizeChanger: true,
                   onShowSizeChange: this.pageRowsChange,
-                  showTotal: total => `共${total}条`,
+                  showTotal: num => `共${num}条`,
                   showQuickJumper: true,
                   onChange: this.pageRowsChange
                 }}
-                onRow={(record) => {//表格行点击事件
-                  return {
-                    onClick: () => this.setState({ rowSelectedId: record.id })
-                  };
-                }}
+                onRow={(
+                  record, //表格行点击事件
+                ) => ({
+                  onClick: () => this.setState({ rowSelectedId: record.id })
+                })}
                 rowClassName={this.setRowClassName}
               />
             </div>
           </div>
         </div>
-        {
-          addVisible ?
-            <AddModal
-              visible={addVisible}
-              close={() => { this.setState({ addVisible: false }); }}
-              detail={detail}
-              handleSubmit={this.addSubmit}
-            />
-            : null
-        }
-        {
-          editVisible ?
-            <EditDrawer
-              visible={editVisible}
-              close={() => { this.setState({ editVisible: false }); }}
-              detail={detail}
-              handleSubmit={this.editSubmit}
-            />
-            : null
-        }
-        {
-          detailVisible ?
-            <DetailDrawer
-              visible={detailVisible}
-              close={() => { this.setState({ detailVisible: false }); }}
-              detail={detail}
-            />
-            : null
-        }
+        {addVisible ? (
+          <AddModal
+            visible={addVisible}
+            close={() => {
+              this.setState({ addVisible: false });
+            }}
+            detail={detail}
+            handleSubmit={this.addSubmit}
+          />
+        ) : null}
+        {editVisible ? (
+          <EditDrawer
+            visible={editVisible}
+            close={() => {
+              this.setState({ editVisible: false });
+            }}
+            detail={detail}
+            handleSubmit={this.editSubmit}
+          />
+        ) : null}
+        {detailVisible ? (
+          <DetailDrawer
+            visible={detailVisible}
+            close={() => {
+              this.setState({ detailVisible: false });
+            }}
+            detail={detail}
+          />
+        ) : null}
       </div>
     );
   }

@@ -7,9 +7,7 @@ import './index.less';
 
 const pageComponents = [Sub1, Sub2];
 
-const Mod1 = () => {
-  return (
-    <Content name="mod1" pageComponents={pageComponents} />
-  );
-};
+const Mod1 = () => (
+  <Content name="mod1" pageComponents={pageComponents} />
+);
 export default Mod1;

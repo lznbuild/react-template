@@ -1,6 +1,7 @@
 import React from 'react';
 import { Result, Button } from 'antd';
 import routerPath from 'router/routerPath';
+
 const NotFound = () => {
   const handleClick = () => {
     window.location.href = routerPath.app.root;
