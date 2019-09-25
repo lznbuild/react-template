@@ -58,7 +58,8 @@
     ]
   },
   "globals": {
-    "config": false,
-    "NProgress": true
+    "globalConfig": true,
+    "NProgress": true,
+    "nprogressUtils": true
   }
 }

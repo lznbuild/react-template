@@ -5,13 +5,13 @@ import authUtils from './authUtils';
 // 创建axios实例
 const service = axios.create({
   timeout: 10000, // 请求超时时间
-  baseURL: config && config.apiPrefix ? config.apiPrefix.default : '/api' //请求前缀，根据实际情况修改
+  baseURL: globalConfig && globalConfig.apiPrefix ? globalConfig.apiPrefix.default : '/api' //请求前缀，根据实际情况修改
 });
 
 // request拦截器
 service.interceptors.request.use(
   config => {
-    NProgress.start();
+    nprogressUtils.start();
     let tokenId = authUtils.getTokenId();
     if (typeof tokenId == 'undefined') {
       tokenId = '';
@@ -32,7 +32,7 @@ service.interceptors.request.use(
 // respone拦截器
 service.interceptors.response.use(
   response => {
-    NProgress.done();
+    nprogressUtils.done();
     if (response.data.isError) {
       if (response.data.error.codeNumber === 904) {
         message.info(response.data.error.message, 2, () => {
@@ -46,7 +46,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    NProgress.done();
+    nprogressUtils.done();
     console.log('err', error); // for debug
     message.error(error.message, 3);
     return Promise.reject(error);

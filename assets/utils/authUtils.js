@@ -6,7 +6,6 @@ const authUtils = (() => {
   const storageKeys = ['tokenId', 'userName'];
   let moduleRoles = { newModules: [], oldIndexs: [] };
   let userRoles = [];
-  let globalLoadingCnt = 0;
 
   return {
     login: data => {
@@ -89,18 +88,6 @@ const authUtils = (() => {
 
     clearStorage: () => {
       storageKeys.map(k => window.sessionStorage.removeItem(k));
-    },
-
-    loadingStart: () => {
-      globalLoadingCnt += 1;
-      NProgress.start();
-    },
-
-    loadingDone: () => {
-      globalLoadingCnt -= 1;
-      if (!globalLoadingCnt) {
-        NProgress.done();
-      }
     },
 
     /*=============以下方法测试使用===============*/

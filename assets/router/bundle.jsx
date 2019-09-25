@@ -11,7 +11,7 @@ class Bundle extends React.Component {
   }
 
   componentWillMount() {
-    NProgress.start();
+    nprogressUtils.start();
     this.load(this.props);
   }
 
@@ -22,7 +22,7 @@ class Bundle extends React.Component {
   }
 
   componentDidMount() {
-    NProgress.done();
+    nprogressUtils.done();
   }
 
   //solved problem: Can't perform a React state update on an unmounted component
