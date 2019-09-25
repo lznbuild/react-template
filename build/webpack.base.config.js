@@ -20,7 +20,7 @@ module.exports = {
       store: path.join(__dirname, srcPath, 'store'),
       pages: path.join(__dirname, srcPath, 'pages'),
       api: path.join(__dirname, srcPath, 'api'),
-      utils: path.join(__dirname, srcPath, 'utils/'),
+      utils: path.join(__dirname, srcPath, 'utils'),
       public: path.join(__dirname, srcPath, 'public')
     }
   },
