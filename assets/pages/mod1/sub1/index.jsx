@@ -78,13 +78,9 @@ class Sub1 extends React.Component {
       }
     ];
 
-    const {
-      page, pageSize, pageSizeOptions, total, dataSource
-    } = this.props.tableInfo;
+    const { page, pageSize, pageSizeOptions, total, dataSource } = this.props.tableInfo;
 
-    const {
-      addVisible, editVisible, detailVisible, pkInfo
-    } = this.state;
+    const { addVisible, editVisible, detailVisible, pkInfo } = this.state;
 
     const scrollY = window.innerHeight - 280;
 
@@ -128,7 +124,7 @@ class Sub1 extends React.Component {
                   onChange: this.props.pageRowsChange
                 }}
                 onRow={(
-                  record, //表格行点击事件
+                  record //表格行点击事件
                 ) => ({
                   onClick: () => this.props.setRowSelectedId(record.id)
                 })}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Descriptions } from 'antd';
 import testApi from 'api/test';
 
-const Detail = (props) => {
+const Detail = props => {
   const [formData, setFormData] = useState({});
 
   const { pkInfo } = props;

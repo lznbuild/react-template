@@ -8,7 +8,7 @@ const utils = {
     return null;
   },
 
-  isNullOrEmpty: (obj) => {
+  isNullOrEmpty: obj => {
     if (!obj || obj.length == 0) {
       return true;
     }

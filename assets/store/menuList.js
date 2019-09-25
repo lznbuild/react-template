@@ -8,27 +8,25 @@ class MenuList {
 
   @action async getMenuList() {
     if (JSON.stringify(this.menuList) == '{}') {
-      let params = { 'modtypes': config.navRoutePath };
-      let menuList = await loginApi.getModuleRoles(params)
-        .then(res => {
-          let data = res.data.data;
-          let navData = {};
-          for (let i = 0; i < data.length; i++) {
-            navData[data[i].modType] = data[i].children;
-          }
-          if (data[0]) {
-            return navData;
-          } else {
-            return {};
-          }
-        });
+      let params = { modtypes: config.navRoutePath };
+      let menuList = await loginApi.getModuleRoles(params).then(res => {
+        let data = res.data.data;
+        let navData = {};
+        for (let i = 0; i < data.length; i++) {
+          navData[data[i].modType] = data[i].children;
+        }
+        if (data[0]) {
+          return navData;
+        } else {
+          return {};
+        }
+      });
       runInAction(() => {
         this.menuList = menuList;
       });
     }
-
   }
-  @observable pages = ''
+  @observable pages = '';
   @action changePages(params) {
     this.pages = params;
   }

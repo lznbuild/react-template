@@ -38,7 +38,6 @@ const paths = {
               title: '子子模块1',
               path: '/mod2/sub1/1',
               icon: 'home'
-
             },
             {
               title: '子子模块2',
@@ -49,12 +48,11 @@ const paths = {
                   title: '子子模块11',
                   path: '/mod2/sub1/2/1',
                   icon: 'home'
-
-                },{
+                },
+                {
                   title: '子子模块12',
                   path: '/mod2/sub1/2/2',
                   icon: 'home'
-
                 }
               ]
             },
@@ -95,24 +93,22 @@ const paths = {
       icon: 'home'
     }
   ]
-
 };
 
 let routerPrefix = process.env.APP_PREFIX;
 routerPrefix = routerPrefix.substring(0, routerPrefix.length - 1);
 
-const initAppPaths = function (obj) {
+const initAppPaths = function(obj) {
   for (let key in obj) {
     if (obj[key] instanceof Object) {
       initAppPaths(obj[key]);
     } else {
       obj[key] = routerPrefix + obj[key];
     }
-
   }
 };
 
-const initModulesPaths = (obj) => {
+const initModulesPaths = obj => {
   for (let key in obj) {
     if (obj[key] instanceof Object) {
       initModulesPaths(obj[key]);
@@ -123,7 +119,7 @@ const initModulesPaths = (obj) => {
   }
 };
 
-const initPaths = (obj) => {
+const initPaths = obj => {
   initAppPaths(obj['app']);
   initModulesPaths(obj['modules']);
 };

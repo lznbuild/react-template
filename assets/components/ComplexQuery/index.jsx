@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Select } from 'antd';
 import './index.less';
 const { Option } = Select;
+const a = 'popo';
+const b = { a, b };
 
-const ComplexQuery = (props) => {
+function foo(items) {
+  return items.filter(item => item.checked).map(item => item.value);
+}
 
+const ComplexQuery = props => {
   const [localFields, setLocalFields] = useState([]);
   const [asyncfields, setAsyncfields] = useState([]);
 
@@ -44,9 +49,7 @@ const ComplexQuery = (props) => {
           children.push(
             <Form.Item label={title} key={name}>
               {getFieldDecorator(`${name}`)(
-                <Select placeholder={title}>
-                  {getOptions(data, dataType, callback)}
-                </Select>,
+                <Select placeholder={title}>{getOptions(data, dataType, callback)}</Select>
               )}
             </Form.Item>
           );
@@ -55,9 +58,7 @@ const ComplexQuery = (props) => {
           children.push(
             <Form.Item label={title} key={name}>
               {getFieldDecorator(`${name}`)(
-                <Select placeholder={title}>
-                  {getOptions(data, dataType, callback)}
-                </Select>,
+                <Select placeholder={title}>{getOptions(data, dataType, callback)}</Select>
               )}
             </Form.Item>
           );
@@ -81,9 +82,7 @@ const ComplexQuery = (props) => {
 
   return (
     <div className="complexQuery">
-      <Form {...formItemLayout}>
-        {localFields}
-      </Form>
+      <Form {...formItemLayout}>{localFields}</Form>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import routerPath from '../router/routerPath';
 import loginApi from '../api/login';
 
 const authUtils = (() => {
-
   const { app, modTypes, modules } = routerPath;
   const storageKeys = ['tokenId', 'userName'];
   let moduleRoles = { newModules: [], oldIndexs: [] };
@@ -10,7 +9,7 @@ const authUtils = (() => {
   let globalLoadingCnt = 0;
 
   return {
-    login: (data) => {
+    login: data => {
       sessionStorage.setItem(storageKeys[0], data.tokenId);
       sessionStorage.setItem(storageKeys[1], data.userInfo.username);
       window.location.href = app.root;
@@ -31,7 +30,7 @@ const authUtils = (() => {
       return sessionStorage.getItem(storageKeys[0]);
     },
 
-    setModuleRoles: (data) => {
+    setModuleRoles: data => {
       authUtils.clearModuleRoles();
 
       if (data) {
@@ -54,7 +53,7 @@ const authUtils = (() => {
       return moduleRoles;
     },
 
-    getSubModules: (name) => {
+    getSubModules: name => {
       let mod = { path: '', children: [], oldIndexs: [] };
       let module = moduleRoles.newModules.find(item => item.name === name);
       let modRole = userRoles.find(item => item.modName === name);
@@ -105,7 +104,7 @@ const authUtils = (() => {
     },
 
     /*=============以下方法测试使用===============*/
-    testLogin: (data) => {
+    testLogin: data => {
       sessionStorage.setItem(storageKeys[0], 'testid20190101');
       sessionStorage.setItem(storageKeys[1], data.username);
       window.location.href = app.root;
@@ -121,7 +120,7 @@ const authUtils = (() => {
       }
     },
 
-    testGetSubModules: (name) => {
+    testGetSubModules: name => {
       let mod = { path: '', children: [], oldIndexs: [] };
       let module = moduleRoles.newModules.find(item => item.name === name);
       if (module) {
@@ -136,7 +135,6 @@ const authUtils = (() => {
       }
       return mod;
     }
-
   };
 })();
 

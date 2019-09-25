@@ -1,18 +1,17 @@
-import service from '../utils/service';
+import service from 'utils/service';
 const loginApi = {
   //登录
-  login: (params) => {
+  login: params => {
     return service.post('/login', params);
   },
 
-  logout:()=>{
+  logout: () => {
     return service.get('/logout');
   },
 
   //功能权限管理
-  getModuleRoles: (params) => {
+  getModuleRoles: params => {
     return service.post('/getModuleRoles', params);
   }
-
 };
 export default loginApi;

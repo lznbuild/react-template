@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, message } from 'antd';
 
-const TableHoc = (SubComponent) => {
+const TableHoc = SubComponent => {
   const pageSizeOptions = ['10', '30', '50', '100'];
 
   return class extends Component {
@@ -27,32 +27,32 @@ const TableHoc = (SubComponent) => {
       window.removeEventListener('resize', this.resize);
     }
 
-    init = (api) => {
+    init = api => {
       this.api = api;
-    }
+    };
 
     resize = () => {
       this.setState({
         key: Math.random()
       });
-    }
+    };
 
     // 选中行
-    setRowSelectedId = (id) => {
+    setRowSelectedId = id => {
       this.setState({ rowSelectedId: id });
-    }
+    };
 
-    getRowClassName = (id) => (id === this.state.rowSelectedId ? 'row-selected' : '')
+    getRowClassName = id => (id === this.state.rowSelectedId ? 'row-selected' : '');
 
     // 切换页码/切换每页展示条数
     pageRowsChange = (page, pageSize) => {
       this.setState({ page, pageSize }, () => {
         this.handleSearch();
       });
-    }
+    };
 
     //del删除，update更新，add增加, search查询
-    handleSearch = (status) => {
+    handleSearch = status => {
       const page = this.getPage(status);
       const params = { page, rows: this.state.pageSize };
       this.props.form.validateFields((err, values) => {
@@ -71,14 +71,14 @@ const TableHoc = (SubComponent) => {
           this.setState({ total, page, dataSource: rows });
         }
       });
-    }
+    };
 
-    getPage = (status) => {
+    getPage = status => {
       let { page } = this.state;
       const { pageSize, total } = this.state;
       if (status) {
         if (status === 'del') {
-          if ((total + pageSize - 1) === page * pageSize) {
+          if (total + pageSize - 1 === page * pageSize) {
             page -= 1;
           }
         } else if (status !== 'update') {
@@ -86,10 +86,10 @@ const TableHoc = (SubComponent) => {
         }
       }
       return page;
-    }
+    };
 
     // 删除
-    handleDelete = (params) => {
+    handleDelete = params => {
       this.api.delete(params).then(res => {
         if (res.data.data !== 0) {
           message.success('删除成功');
@@ -98,9 +98,9 @@ const TableHoc = (SubComponent) => {
           message.error('删除失败');
         }
       });
-    }
+    };
 
-    getFields = (searchFields) => {
+    getFields = searchFields => {
       const { getFieldDecorator } = this.props.form;
       const children = searchFields.map(({ name, title }) => (
         <Form.Item key={name}>
@@ -108,7 +108,7 @@ const TableHoc = (SubComponent) => {
         </Form.Item>
       ));
       return children;
-    }
+    };
 
     render() {
       const props = {
@@ -130,9 +130,7 @@ const TableHoc = (SubComponent) => {
         }
       };
 
-      return (
-        <SubComponent {...props} />
-      );
+      return <SubComponent {...props} />;
     }
   };
 };

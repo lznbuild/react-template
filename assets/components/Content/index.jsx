@@ -6,10 +6,9 @@ import Breadcrumb from 'components/Breadcrumb';
 import LeftMenu from 'components/LeftMenu';
 import NoAccess from 'components/NoAccess';
 import NotFound from 'components/NotFound';
-
+import authUtils from 'utils/authUtils';
 import './index.less';
 import cx from 'classnames';
-import authUtils from '../../utils/authUtils';
 
 @inject('UI')
 @observer
@@ -22,26 +21,37 @@ class Content extends React.Component {
 
     const isNoAccess = !children || children.length === 0;
 
-    const getPageComponent = (index) => {
+    const getPageComponent = index => {
       if (pageComponents && pageComponents[index]) {
         return Bundle(pageComponents[index]);
       }
       if (isNoAccess) {
-        return (NoAccess);
+        return NoAccess;
       }
-      return (NotFound);
+      return NotFound;
     };
 
     return (
       <div className="bw-content">
-        {
-          !isNoAccess ? <LeftMenu data={children} /> : null
-        }
-        <div className={cx({ 'right-content': true, 'right-content-collapsed': collapsed === true, 'right-content-all': isNoAccess })}>
+        {!isNoAccess ? <LeftMenu data={children} /> : null}
+        <div
+          className={cx({
+            'right-content': true,
+            'right-content-collapsed': collapsed === true,
+            'right-content-all': isNoAccess
+          })}
+        >
           <Breadcrumb />
           <Switch>
             <Route exact path={path} component={getPageComponent(0)} />
-            {children && children.map((item, index) => <Route key={index} path={item.path} component={getPageComponent(oldIndexs[index])} />)}
+            {children &&
+              children.map((item, index) => (
+                <Route
+                  key={index}
+                  path={item.path}
+                  component={getPageComponent(oldIndexs[index])}
+                />
+              ))}
           </Switch>
         </div>
       </div>

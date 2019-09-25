@@ -63,7 +63,8 @@ class LeftMenu extends React.Component {
   getActiveMenu2 = menuData => {
     const menuProps = { openMenuArr: [], selectMenuArr: [] };
     const currentPath = window.location.pathname;
-    const { children, path, title } = menuData.find(item => currentPath.indexOf(item.path) !== -1) || {};
+    const { children, path, title } =
+      menuData.find(item => currentPath.indexOf(item.path) !== -1) || {};
     if (children) {
       menuProps.openMenuArr.push({ path, title });
       const subMenuProps = this.getActiveMenu2(children);
@@ -100,9 +101,7 @@ class LeftMenu extends React.Component {
 
   renderMenu = value => {
     const menuArray = [];
-    const {
-      path, title, children, icon = 'home'
-    } = value;
+    const { path, title, children, icon = 'home' } = value;
     const titleHtml = (
       <React.Fragment>
         <Icon type={icon} />
@@ -111,19 +110,12 @@ class LeftMenu extends React.Component {
     );
     if (children && children.length > 0) {
       menuArray.push(
-        <SubMenu
-          key={path}
-          title={titleHtml}
-        >
+        <SubMenu key={path} title={titleHtml}>
           {children.map(this.renderMenu)}
-        </SubMenu>,
+        </SubMenu>
       );
     } else {
-      menuArray.push(
-        <Menu.Item key={path}>
-          {titleHtml}
-        </Menu.Item>,
-      );
+      menuArray.push(<Menu.Item key={path}>{titleHtml}</Menu.Item>);
     }
     return menuArray;
   };
@@ -137,7 +129,12 @@ class LeftMenu extends React.Component {
     //const openKeyArr = this.openKeys;
     console.info(openKeys);
     return (
-      <div className={cx({ 'left-menu': true, 'left-menu-collapsed': collapsed === true })}>
+      <div
+        className={cx({
+          'left-menu': true,
+          'left-menu-collapsed': collapsed === true
+        })}
+      >
         <div className="open-menu" onClick={this.toggleCollapsed}>
           <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
         </div>

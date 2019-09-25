@@ -11,7 +11,11 @@ const NoAccess = () => {
       status="403"
       title="403"
       subTitle="Sorry, you are not authorized to access this page."
-      extra={<Button type="primary" onClick={handleClick}>Back Home</Button>}
+      extra={
+        <Button type="primary" onClick={handleClick}>
+          Back Home
+        </Button>
+      }
     />
   );
 };

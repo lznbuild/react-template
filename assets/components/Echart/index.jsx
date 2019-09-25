@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { injectIntl/*, formatMessage*/ } from 'react-intl';
+import { injectIntl /*, formatMessage*/ } from 'react-intl';
 
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -47,7 +47,7 @@ class ChartLineAnalysis extends React.Component {
   initChart() {
     const chartDom = document.getElementById(`${this.chartId}`);
     //用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
-    const resizeChart = function () {
+    const resizeChart = function() {
       chartDom.style.height = `${(window.innerHeight - 470) / 2}px`;
     };
     //设置容器高宽
@@ -58,16 +58,18 @@ class ChartLineAnalysis extends React.Component {
       // tools.loopShowTooltip(chart, this.props.options, { loopSeries: true }); // 使用本插件
     }
     this.chart = chart;
-    window.addEventListener('resize', () => {
-      resizeChart();
-      chart.resize();
-    }, false);
+    window.addEventListener(
+      'resize',
+      () => {
+        resizeChart();
+        chart.resize();
+      },
+      false
+    );
   }
 
   render() {
-    return (
-      <div id={this.chartId} />
-    );
+    return <div id={this.chartId} />;
   }
 }
 export default injectIntl(ChartLineAnalysis);

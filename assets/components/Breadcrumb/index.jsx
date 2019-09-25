@@ -15,18 +15,20 @@ class CustomBreadcrumb extends React.Component {
         <Breadcrumb.Item href={authUtils.getHomePath()}>
           <Icon type="home" />
         </Breadcrumb.Item>
-        {
-          breadcrumbValues.map((item, index) => {
-            let cn = 'breadcrumb-item';
-            if (breadcrumbValues.length - 1 === index) {
-              cn = 'breadcrumb-item-last';
-            }
-            if (item) {
-              return <Breadcrumb.Item className={cn} key={index}>{item.title}</Breadcrumb.Item>;
-            }
-            return null;
-          })
-        }
+        {breadcrumbValues.map((item, index) => {
+          let cn = 'breadcrumb-item';
+          if (breadcrumbValues.length - 1 === index) {
+            cn = 'breadcrumb-item-last';
+          }
+          if (item) {
+            return (
+              <Breadcrumb.Item className={cn} key={index}>
+                {item.title}
+              </Breadcrumb.Item>
+            );
+          }
+          return null;
+        })}
       </Breadcrumb>
     );
   }

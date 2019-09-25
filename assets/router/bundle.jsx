@@ -26,8 +26,8 @@ class Bundle extends React.Component {
   }
 
   //solved problem: Can't perform a React state update on an unmounted component
-  componentWillUnmount(){
-    this.setState = ()=>{
+  componentWillUnmount() {
+    this.setState = () => {
       return;
     };
   }
@@ -36,7 +36,7 @@ class Bundle extends React.Component {
     this.setState({
       mod: null
     });
-    props.load((mod) => {
+    props.load(mod => {
       this.setState({
         // handle both es imports and cjs
         mod: mod.default ? mod.default : mod
@@ -48,11 +48,7 @@ class Bundle extends React.Component {
     return this.state.mod ? this.props.children(this.state.mod) : null;
   }
 }
-const createComponent = (component) => () => (
-  <Bundle load={component}>
-      {
-          (Component) => Component ? <Component /> : null
-      }
-  </Bundle>
+const createComponent = component => () => (
+  <Bundle load={component}>{Component => (Component ? <Component /> : null)}</Bundle>
 );
 export default createComponent;

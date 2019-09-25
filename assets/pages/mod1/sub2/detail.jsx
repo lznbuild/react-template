@@ -7,12 +7,7 @@ class DetailDrawer extends React.Component {
     const { name, desc } = detail;
 
     return (
-      <Drawer
-        title="详情"
-        onClose={() => this.props.close()}
-        visible={visible}
-        width={500}
-      >
+      <Drawer title="详情" onClose={() => this.props.close()} visible={visible} width={500}>
         <Descriptions title="" column={{ xs: 1, sm: 1, md: 2 }}>
           <Descriptions.Item label="姓名">{name || ''}</Descriptions.Item>
           <Descriptions.Item label="描述">{desc || ''}</Descriptions.Item>

@@ -3,10 +3,10 @@ import React from 'react';
 import { ConfigProvider } from 'antd';
 import { IntlProvider, addLocaleData } from 'react-intl';
 /*
-*引入与navigator.languages[0]所对应的语言；
-*如果没有引入对应的语言，会使用默认的“en”；
-*导致FormattedMessage的映射不会成功；
-*/
+ *引入与navigator.languages[0]所对应的语言；
+ *如果没有引入对应的语言，会使用默认的“en”；
+ *导致FormattedMessage的映射不会成功；
+ */
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
 

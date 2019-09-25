@@ -4,7 +4,7 @@ configure({ enforceActions: 'observed' });
 
 class Breadcrumb {
   //面包屑的数据
-  @observable values = []
+  @observable values = [];
 
   @action setValue = (index, crumbArray) => {
     if (index === 0) {
@@ -12,9 +12,9 @@ class Breadcrumb {
     }
     if (crumbArray) {
       if (Array.isArray(crumbArray)) {
-        if(this.values.length===0){
+        if (this.values.length === 0) {
           index = 0;
-        }else{
+        } else {
           this.values.splice(index);
         }
         crumbArray.map((v, i) => {
@@ -24,7 +24,7 @@ class Breadcrumb {
         this.values[index] = crumbArray;
       }
     }
-  }
+  };
 
   @computed get getValues() {
     return this.values.slice();

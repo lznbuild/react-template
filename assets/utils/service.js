@@ -18,7 +18,7 @@ service.interceptors.request.use(
     }
     config.headers = {
       'Content-Type': 'application/json;charset=utf-8',
-      'Authorization': tokenId
+      Authorization: tokenId
     };
     return config;
   },
@@ -47,9 +47,10 @@ service.interceptors.response.use(
   },
   error => {
     NProgress.done();
-    console.log('err', error);// for debug
+    console.log('err', error); // for debug
     message.error(error.message, 3);
     return Promise.reject(error);
-  });
+  }
+);
 
 export default service;

@@ -14,7 +14,7 @@ const formItemLayout = {
     sm: { span: 18 }
   }
 };
-const Edit = (props) => {
+const Edit = props => {
   const [formData, setFormData] = useState({});
 
   const { pkInfo, handleClose } = props;
@@ -23,7 +23,7 @@ const Edit = (props) => {
 
   const isAddHandle = utils.isNullOrEmpty(pkInfo);
 
-  const addOrUpdate = (values) => {
+  const addOrUpdate = values => {
     const handleTitle = isAddHandle ? '添加' : '编辑';
     const status = isAddHandle ? 'add' : 'update';
     testApi.addOrUpdate(isAddHandle, values).then(res => {
@@ -67,9 +67,7 @@ const Edit = (props) => {
         <Form.Item label="名字">
           {getFieldDecorator('name', {
             initialValue: formData.name || '',
-            rules: [
-              { required: true, message: '名字不能为空!' }
-            ]
+            rules: [{ required: true, message: '名字不能为空!' }]
           })(<Input />)}
         </Form.Item>
         <Form.Item label="描述">
@@ -77,7 +75,8 @@ const Edit = (props) => {
             initialValue: formData.desc || '',
             rules: [
               {
-                required: true, message: '描述不能为空!'
+                required: true,
+                message: '描述不能为空!'
               }
             ]
           })(<TextArea rows={4} />)}
@@ -96,8 +95,12 @@ const Edit = (props) => {
           borderRadius: '0 0 4px 4px'
         }}
       >
-        <Button style={{ marginRight: '10px' }} onClick={() => handleClose(false)}>取消</Button>
-        <Button onClick={handleSubmit} type="primary">提交</Button>
+        <Button style={{ marginRight: '10px' }} onClick={() => handleClose(false)}>
+          取消
+        </Button>
+        <Button onClick={handleSubmit} type="primary">
+          提交
+        </Button>
       </div>
     </div>
   );

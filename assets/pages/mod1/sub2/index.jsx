@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Button, Input, Table, Divider, Popconfirm, Icon, message
-} from 'antd';
+import { Button, Input, Table, Divider, Popconfirm, Icon, message } from 'antd';
 import testApi from 'api/test';
 import EditDrawer from './drawer';
 import AddModal from './modal';
@@ -34,7 +32,7 @@ class Sub2 extends React.Component {
         //   key: Math.random(),
         // });
       },
-      false,
+      false
     );
   }
 
@@ -217,7 +215,7 @@ class Sub2 extends React.Component {
                   onChange: this.pageRowsChange
                 }}
                 onRow={(
-                  record, //表格行点击事件
+                  record //表格行点击事件
                 ) => ({
                   onClick: () => this.setState({ rowSelectedId: record.id })
                 })}

@@ -4,7 +4,8 @@ const langUtils = (() => {
     { lang: 'zh-TW', title: '繁体中文' },
     { lang: 'en-US', title: 'English' }
   ];
-  let currentLang = localStorage.getItem('et_lang') || navigator.languages[0] || navigator.language[0] || 'zh-CN';
+  let currentLang =
+    localStorage.getItem('et_lang') || navigator.languages[0] || navigator.language[0] || 'zh-CN';
   return {
     getLangArray: () => {
       return langArray;
@@ -12,13 +13,13 @@ const langUtils = (() => {
     getCurrentLang: () => {
       return currentLang;
     },
-    changeCurrentLang: (lang) => {
+    changeCurrentLang: lang => {
       if (lang != currentLang) {
         localStorage.setItem('et_lang', lang);
         window.location.reload();
       }
     },
-    getLangTitle: (lang) => {
+    getLangTitle: lang => {
       let title = '';
       lang = lang == null ? currentLang : lang;
       for (let i in langArray) {

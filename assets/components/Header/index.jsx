@@ -2,9 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
-import {
-  Avatar, Dropdown, Icon, Menu
-} from 'antd';
+import { Avatar, Dropdown, Icon, Menu } from 'antd';
 import cx from 'classnames';
 import authUtils from 'utils/authUtils';
 import './index.less';
@@ -21,27 +19,27 @@ class Header extends React.Component {
     };
   }
 
-  handleLogout = (e) => {
+  handleLogout = e => {
     if (e.key === 'signout') {
       authUtils.logout();
     }
-  }
+  };
 
-  handlePage = (e) => {
+  handlePage = e => {
     const path = e.currentTarget.id;
     const title = e.currentTarget.getAttribute('name');
     this.props.UI.reset();
     this.props.Breadcrumb.setValue(0, { path, title });
     this.props.history.push(path);
     this.setState({ current: path });
-  }
+  };
 
-  handleIndex = (e) => {
+  handleIndex = e => {
     const currentRoute = this.props.location.pathname;
     if (currentRoute !== e.target.id) {
       window.location.href = e.target.id;
     }
-  }
+  };
 
   componentDidMount() {
     this.props.Breadcrumb.setValue(0, this.currentModuleTitle);
@@ -73,32 +71,39 @@ class Header extends React.Component {
       return active;
     };
 
-    const loopNavMap = data => data.map((item, index) => (
-      <li
-        key={item.path}
-        id={item.path}
-        name={item.title}
-        className={cx({ active: isActive(item, index) })}
-        onClick={this.handlePage}
-      >
-        {item.title}
-      </li>
-    ));
+    const loopNavMap = data =>
+      data.map((item, index) => (
+        <li
+          key={item.path}
+          id={item.path}
+          name={item.title}
+          className={cx({ active: isActive(item, index) })}
+          onClick={this.handlePage}
+        >
+          {item.title}
+        </li>
+      ));
 
     return (
       <div className="header-component">
         <div className="header-left">
           <img src={logo} alt="" width="30px" height="32px" />
-          <span id={homePath} onClick={this.handleIndex}>xxxx项目/平台</span>
-          <ul>
-            {modules && modules.length > 1 && loopNavMap(modules)}
-          </ul>
+          <span id={homePath} onClick={this.handleIndex}>
+            xxxx项目/平台
+          </span>
+          <ul>{modules && modules.length > 1 && loopNavMap(modules)}</ul>
         </div>
         <div className="header-right">
           <Dropdown overlay={loginMenu} trigger={['click']}>
             <span>
-              <Avatar size="small" style={{ color: '#fff', backgroundColor: '#1C1D22' }} icon="user" />
-              <span style={{ color: '#fff', fontSize: '14px', margin: '0 3px' }}>{userName || <FormattedMessage id="head.nologin" />}</span>
+              <Avatar
+                size="small"
+                style={{ color: '#fff', backgroundColor: '#1C1D22' }}
+                icon="user"
+              />
+              <span style={{ color: '#fff', fontSize: '14px', margin: '0 3px' }}>
+                {userName || <FormattedMessage id="head.nologin" />}
+              </span>
               <Icon type="down" />
             </span>
           </Dropdown>
