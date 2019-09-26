@@ -85,7 +85,7 @@ const prodConfig = module.exports = {
   output: {
     filename: appConfig.relativePrefix + 'js/[name].[chunkhash:8].js',
     chunkFilename: appConfig.relativePrefix + 'js/[name].[chunkhash:8].js',
-    publicPath: '/'
+    publicPath: appConfig.prodPublicPath || '/'
   }
 };
 module.exports = merge(commonConfig, prodConfig);

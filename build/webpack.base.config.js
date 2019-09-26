@@ -85,7 +85,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'assets/index.html',
       templateParameters: {
-        appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.absolutePrefix
+        appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.prodPublicPath + appConfig.relativePrefix
       }
     }),
     new CleanWebpackPlugin()
