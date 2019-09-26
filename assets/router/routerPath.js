@@ -108,7 +108,7 @@ const initAppPaths = function(obj) {
   }
 };
 
-const initModulesPaths = obj => {
+const initModulesPaths = (obj) => {
   for (let key in obj) {
     if (obj[key] instanceof Object) {
       initModulesPaths(obj[key]);
@@ -119,7 +119,7 @@ const initModulesPaths = obj => {
   }
 };
 
-const initPaths = obj => {
+const initPaths = (obj) => {
   initAppPaths(obj['app']);
   initModulesPaths(obj['modules']);
 };

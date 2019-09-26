@@ -8,7 +8,7 @@ const authUtils = (() => {
   let userRoles = [];
 
   return {
-    login: data => {
+    login: (data) => {
       sessionStorage.setItem(storageKeys[0], data.tokenId);
       sessionStorage.setItem(storageKeys[1], data.userInfo.username);
       window.location.href = app.root;
@@ -29,13 +29,13 @@ const authUtils = (() => {
       return sessionStorage.getItem(storageKeys[0]);
     },
 
-    setModuleRoles: data => {
+    setModuleRoles: (data) => {
       authUtils.clearModuleRoles();
 
       if (data) {
         userRoles = data;
         for (let i in modules) {
-          if (data.find(item => item.modName === modules[i].name)) {
+          if (data.find((item) => item.modName === modules[i].name)) {
             moduleRoles.newModules.push(modules[i]);
             moduleRoles.oldIndexs.push(i);
           }
@@ -52,10 +52,10 @@ const authUtils = (() => {
       return moduleRoles;
     },
 
-    getSubModules: name => {
+    getSubModules: (name) => {
       let mod = { path: '', children: [], oldIndexs: [] };
-      let module = moduleRoles.newModules.find(item => item.name === name);
-      let modRole = userRoles.find(item => item.modName === name);
+      let module = moduleRoles.newModules.find((item) => item.name === name);
+      let modRole = userRoles.find((item) => item.modName === name);
 
       if (module) {
         mod.path = module.path;
@@ -63,7 +63,7 @@ const authUtils = (() => {
         let childrenRole = modRole.children;
         if (children && childrenRole) {
           for (let i in children) {
-            if (childrenRole.find(item => item.modName === children[i].name)) {
+            if (childrenRole.find((item) => item.modName === children[i].name)) {
               mod.children.push(children[i]);
               mod.oldIndexs.push(i);
             }
@@ -87,11 +87,11 @@ const authUtils = (() => {
     },
 
     clearStorage: () => {
-      storageKeys.map(k => window.sessionStorage.removeItem(k));
+      storageKeys.map((k) => window.sessionStorage.removeItem(k));
     },
 
     /*=============以下方法测试使用===============*/
-    testLogin: data => {
+    testLogin: (data) => {
       sessionStorage.setItem(storageKeys[0], 'testid20190101');
       sessionStorage.setItem(storageKeys[1], data.username);
       window.location.href = app.root;
@@ -107,9 +107,9 @@ const authUtils = (() => {
       }
     },
 
-    testGetSubModules: name => {
+    testGetSubModules: (name) => {
       let mod = { path: '', children: [], oldIndexs: [] };
-      let module = moduleRoles.newModules.find(item => item.name === name);
+      let module = moduleRoles.newModules.find((item) => item.name === name);
       if (module) {
         mod.path = module.path;
         let children = module.children;

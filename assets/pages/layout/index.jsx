@@ -21,7 +21,7 @@ const Layout = () => {
 
   const { newModules, oldIndexs } = authUtils.getModuleRoles();
 
-  const getRootRedirect = modules => {
+  const getRootRedirect = (modules) => {
     if (modules[0].path === window.location.pathname) {
       return modules[0].children[0].path;
     }

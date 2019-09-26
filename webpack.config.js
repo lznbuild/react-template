@@ -12,7 +12,7 @@ const devWebpackConfig = merge(devConfig,
       disableHostCheck: true,
       proxy: {
         '/api': {
-          target: 'http://192.168.2.78:8081',
+          target: 'http://192.168.2.26:8081',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''

@@ -21,7 +21,7 @@ class Content extends React.Component {
 
     const isNoAccess = !children || children.length === 0;
 
-    const getPageComponent = index => {
+    const getPageComponent = (index) => {
       if (pageComponents && pageComponents[index]) {
         return Bundle(pageComponents[index]);
       }

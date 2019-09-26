@@ -1,7 +1,7 @@
 import service from 'utils/service';
 const loginApi = {
   //登录
-  login: params => {
+  login: (params) => {
     return service.post('/login', params);
   },
 
@@ -10,7 +10,7 @@ const loginApi = {
   },
 
   //功能权限管理
-  getModuleRoles: params => {
+  getModuleRoles: (params) => {
     return service.post('/getModuleRoles', params);
   }
 };

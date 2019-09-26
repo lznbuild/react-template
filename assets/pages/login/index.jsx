@@ -37,7 +37,7 @@ const Login = () => {
             size="large"
             prefix={<Icon type="user" style={{ fontSize: '20px', color: '#9F9F9F' }} />}
             type="text"
-            onChange={e => {
+            onChange={(e) => {
               setUsername(e.target.value);
             }}
             placeholder="请输入用户名"
@@ -47,7 +47,7 @@ const Login = () => {
             size="large"
             prefix={<Icon type="lock" style={{ fontSize: '20px', color: '#9F9F9F' }} />}
             type="password"
-            onChange={e => {
+            onChange={(e) => {
               setPwd(e.target.value);
             }}
             placeholder="请输入密码"

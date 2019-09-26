@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Descriptions } from 'antd';
 import testApi from 'api/test';
 
-const Detail = props => {
+const Detail = (props) => {
   const [formData, setFormData] = useState({});
 
   const { pkInfo } = props;
 
   useEffect(() => {
-    testApi.detail(pkInfo).then(res => {
+    testApi.detail(pkInfo).then((res) => {
       const { data } = res.data;
       if (data) {
         setFormData(data);

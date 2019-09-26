@@ -10,7 +10,7 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(
-  config => {
+  (config) => {
     nprogressUtils.start();
     let tokenId = authUtils.getTokenId();
     if (typeof tokenId == 'undefined') {
@@ -22,7 +22,7 @@ service.interceptors.request.use(
     };
     return config;
   },
-  error => {
+  (error) => {
     // Do something with request error
     console.log(error); // for debug
     return Promise.reject(error);
@@ -31,7 +31,7 @@ service.interceptors.request.use(
 
 // respone拦截器
 service.interceptors.response.use(
-  response => {
+  (response) => {
     nprogressUtils.done();
     if (response.data.isError) {
       if (response.data.error.codeNumber === 904) {
@@ -45,7 +45,7 @@ service.interceptors.response.use(
       return response;
     }
   },
-  error => {
+  (error) => {
     nprogressUtils.done();
     console.log('err', error); // for debug
     message.error(error.message, 3);

@@ -13,13 +13,13 @@ const langUtils = (() => {
     getCurrentLang: () => {
       return currentLang;
     },
-    changeCurrentLang: lang => {
+    changeCurrentLang: (lang) => {
       if (lang != currentLang) {
         localStorage.setItem('et_lang', lang);
         window.location.reload();
       }
     },
-    getLangTitle: lang => {
+    getLangTitle: (lang) => {
       let title = '';
       lang = lang == null ? currentLang : lang;
       for (let i in langArray) {

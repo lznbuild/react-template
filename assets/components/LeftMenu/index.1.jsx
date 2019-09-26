@@ -26,12 +26,12 @@ class LeftMenu extends React.Component {
     this.props.UI.toggleCollapsed();
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     this.props.Breadcrumb.setValue(1, e.currentTarget.getAttribute('name'));
     this.props.history.push(e.currentTarget.id);
   };
 
-  handleClick2 = menuItem => {
+  handleClick2 = (menuItem) => {
     const { keyPath } = menuItem;
     const len = keyPath.length - 1;
     const crumbValues = this.getCrumbValues(this.menuData, keyPath, len);
@@ -42,7 +42,7 @@ class LeftMenu extends React.Component {
   getCrumbValues = (menuData, paths, len) => {
     let crumbArray = [];
     for (let k = len; k >= 0; k -= 1) {
-      const menuDataItem = menuData.find(item => item.path === paths[k]);
+      const menuDataItem = menuData.find((item) => item.path === paths[k]);
       if (menuDataItem) {
         crumbArray.push({ path: paths[k], title: menuDataItem.title });
         if (menuDataItem.children) {
@@ -56,15 +56,15 @@ class LeftMenu extends React.Component {
     return crumbArray;
   };
 
-  openKeysHandle = keys => {
+  openKeysHandle = (keys) => {
     openKeys = keys;
   };
 
-  getActiveMenu2 = menuData => {
+  getActiveMenu2 = (menuData) => {
     const menuProps = { openMenuArr: [], selectMenuArr: [] };
     const currentPath = window.location.pathname;
     const { children, path, title } =
-      menuData.find(item => currentPath.indexOf(item.path) !== -1) || {};
+      menuData.find((item) => currentPath.indexOf(item.path) !== -1) || {};
     if (children) {
       menuProps.openMenuArr.push({ path, title });
       const subMenuProps = this.getActiveMenu2(children);
@@ -80,10 +80,10 @@ class LeftMenu extends React.Component {
     return menuProps;
   };
 
-  getActiveMenu = menuData => {
+  getActiveMenu = (menuData) => {
     const menuProps = { openKeyArr: [], selectKeyArr: [] };
     const currentPath = window.location.pathname;
-    const { children, path } = menuData.find(item => currentPath.indexOf(item.path) !== -1) || {};
+    const { children, path } = menuData.find((item) => currentPath.indexOf(item.path) !== -1) || {};
     if (children) {
       menuProps.openKeyArr.push(path);
       const subMenuProps = this.getActiveMenu(children);
@@ -99,7 +99,7 @@ class LeftMenu extends React.Component {
     return menuProps;
   };
 
-  renderMenu = value => {
+  renderMenu = (value) => {
     const menuArray = [];
     const { path, title, children, icon = 'home' } = value;
     const titleHtml = (
@@ -123,8 +123,8 @@ class LeftMenu extends React.Component {
   render() {
     const { collapsed } = this.props.UI;
     const { openMenuArr, selectMenuArr } = this.getActiveMenu2(this.menuData);
-    const openKeyArr = openMenuArr.map(v => v.path);
-    const selectKeyArr = selectMenuArr.map(v => v.path);
+    const openKeyArr = openMenuArr.map((v) => v.path);
+    const selectKeyArr = selectMenuArr.map((v) => v.path);
     //const { openKeyArr, selectKeyArr } = this.getActiveMenu(this.menuData);
     //const openKeyArr = this.openKeys;
     console.info(openKeys);

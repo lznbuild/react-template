@@ -5,13 +5,13 @@ const testApi = {
     let apiUrl = isAddHandle ? '/test/add' : '/test/update';
     return service.post(apiUrl, params);
   },
-  delete: params => {
+  delete: (params) => {
     return service.post('/test/delete', params);
   },
-  detail: params => {
+  detail: (params) => {
     return service.post('/test/detail', params, { baseURL });
   },
-  list: params => {
+  list: (params) => {
     return service.post('/test/list', params);
   },
   getTypes: () => {

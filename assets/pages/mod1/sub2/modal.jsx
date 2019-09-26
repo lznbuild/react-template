@@ -9,7 +9,7 @@ class AddModal extends React.Component {
     this.state = {};
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {

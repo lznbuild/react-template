@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, message } from 'antd';
 
-const TableHoc = SubComponent => {
+const TableHoc = (SubComponent) => {
   const pageSizeOptions = ['10', '30', '50', '100'];
 
   return class extends Component {
@@ -27,7 +27,7 @@ const TableHoc = SubComponent => {
       window.removeEventListener('resize', this.resize);
     }
 
-    init = api => {
+    init = (api) => {
       this.api = api;
     };
 
@@ -38,11 +38,11 @@ const TableHoc = SubComponent => {
     };
 
     // 选中行
-    setRowSelectedId = id => {
+    setRowSelectedId = (id) => {
       this.setState({ rowSelectedId: id });
     };
 
-    getRowClassName = id => (id === this.state.rowSelectedId ? 'row-selected' : '');
+    getRowClassName = (id) => (id === this.state.rowSelectedId ? 'row-selected' : '');
 
     // 切换页码/切换每页展示条数
     pageRowsChange = (page, pageSize) => {
@@ -52,7 +52,7 @@ const TableHoc = SubComponent => {
     };
 
     //del删除，update更新，add增加, search查询
-    handleSearch = status => {
+    handleSearch = (status) => {
       const page = this.getPage(status);
       const params = { page, rows: this.state.pageSize };
       this.props.form.validateFields((err, values) => {
@@ -64,7 +64,7 @@ const TableHoc = SubComponent => {
           }
         }
       });
-      this.api.list(params).then(res => {
+      this.api.list(params).then((res) => {
         const { data } = res.data;
         if (data) {
           const { total, rows } = data;
@@ -73,7 +73,7 @@ const TableHoc = SubComponent => {
       });
     };
 
-    getPage = status => {
+    getPage = (status) => {
       let { page } = this.state;
       const { pageSize, total } = this.state;
       if (status) {
@@ -89,8 +89,8 @@ const TableHoc = SubComponent => {
     };
 
     // 删除
-    handleDelete = params => {
-      this.api.delete(params).then(res => {
+    handleDelete = (params) => {
+      this.api.delete(params).then((res) => {
         if (res.data.data !== 0) {
           message.success('删除成功');
           this.handleSearch('del');
@@ -100,7 +100,7 @@ const TableHoc = SubComponent => {
       });
     };
 
-    getFields = searchFields => {
+    getFields = (searchFields) => {
       const { getFieldDecorator } = this.props.form;
       const children = searchFields.map(({ name, title }) => (
         <Form.Item key={name}>

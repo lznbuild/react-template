@@ -38,7 +38,7 @@ class Sub2 extends React.Component {
 
   getList = (page = 1, rows = 2, searchValue) => {
     const params = { page, rows, name: searchValue };
-    testApi.list(params).then(res => {
+    testApi.list(params).then((res) => {
       const { data } = res.data;
       if (data) {
         const { total, rows: dataSource } = data;
@@ -65,17 +65,17 @@ class Sub2 extends React.Component {
   }
 
   // 详情接口
-  handleDetail = record => {
+  handleDetail = (record) => {
     const params = { id: record.id };
-    testApi.detail(params).then(res => {
+    testApi.detail(params).then((res) => {
       const { data } = res.data;
       this.setState({ detailVisible: true, detail: data });
     });
   };
 
   // 增加接口
-  addSubmit = values => {
-    testApi.add(values).then(res => {
+  addSubmit = (values) => {
+    testApi.add(values).then((res) => {
       if (res.data.data !== 0) {
         message.success('添加成功');
         this.setState({ addVisible: false });
@@ -88,8 +88,8 @@ class Sub2 extends React.Component {
   };
 
   // 编辑接口
-  editSubmit = values => {
-    testApi.update(values).then(res => {
+  editSubmit = (values) => {
+    testApi.update(values).then((res) => {
       if (res.data.data !== 0) {
         message.success('编辑成功');
         this.setState({ editVisible: false });
@@ -102,9 +102,9 @@ class Sub2 extends React.Component {
   };
 
   // 删除接口
-  confirmDelete = record => {
+  confirmDelete = (record) => {
     const params = { id: record.id };
-    testApi.delete(params).then(res => {
+    testApi.delete(params).then((res) => {
       if (res.data.data !== 0) {
         message.success('删除成功');
         const { rows } = this.state;
@@ -116,7 +116,7 @@ class Sub2 extends React.Component {
   };
 
   // 选中行
-  setRowClassName = record => {
+  setRowClassName = (record) => {
     const { rowSelectedId } = this.state;
     return record.id === rowSelectedId ? 'row-selected' : '';
   };
@@ -182,7 +182,7 @@ class Sub2 extends React.Component {
                   value={searchValue}
                   placeholder="关键字查询"
                   style={{ width: '200px', marginRight: '10px' }}
-                  onChange={e => this.setState({ searchValue: e.target.value })}
+                  onChange={(e) => this.setState({ searchValue: e.target.value })}
                 />
                 <Button type="primary" ghost onClick={() => this.getList(1, rows, searchValue)}>
                   查询
@@ -210,7 +210,7 @@ class Sub2 extends React.Component {
                   pageSizeOptions: ['2', '10', '30', '50'],
                   showSizeChanger: true,
                   onShowSizeChange: this.pageRowsChange,
-                  showTotal: num => `共${num}条`,
+                  showTotal: (num) => `共${num}条`,
                   showQuickJumper: true,
                   onChange: this.pageRowsChange
                 }}

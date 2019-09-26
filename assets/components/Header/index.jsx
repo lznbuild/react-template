@@ -19,13 +19,13 @@ class Header extends React.Component {
     };
   }
 
-  handleLogout = e => {
+  handleLogout = (e) => {
     if (e.key === 'signout') {
       authUtils.logout();
     }
   };
 
-  handlePage = e => {
+  handlePage = (e) => {
     const path = e.currentTarget.id;
     const title = e.currentTarget.getAttribute('name');
     this.props.UI.reset();
@@ -34,7 +34,7 @@ class Header extends React.Component {
     this.setState({ current: path });
   };
 
-  handleIndex = e => {
+  handleIndex = (e) => {
     const currentRoute = this.props.location.pathname;
     if (currentRoute !== e.target.id) {
       window.location.href = e.target.id;
@@ -71,7 +71,7 @@ class Header extends React.Component {
       return active;
     };
 
-    const loopNavMap = data =>
+    const loopNavMap = (data) =>
       data.map((item, index) => (
         <li
           key={item.path}

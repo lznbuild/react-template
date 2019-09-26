@@ -6,10 +6,10 @@ const a = 'popo';
 const b = { a, b };
 
 function foo(items) {
-  return items.filter(item => item.checked).map(item => item.value);
+  return items.filter((item) => item.checked).map((item) => item.value);
 }
 
-const ComplexQuery = props => {
+const ComplexQuery = (props) => {
   const [localFields, setLocalFields] = useState([]);
   const [asyncfields, setAsyncfields] = useState([]);
 
@@ -24,16 +24,16 @@ const ComplexQuery = props => {
   const getOptions = (data, dataType, callback) => {
     switch (dataType) {
       case 'api':
-        callback().then(res => {
+        callback().then((res) => {
           if (res && res.data.data) {
             console.info(res.data.data);
-            setAsyncfields(res.data.data.map(d => <Option key={d.value}>{d.text}</Option>));
+            setAsyncfields(res.data.data.map((d) => <Option key={d.value}>{d.text}</Option>));
           }
         });
         break;
       default:
         if (data) {
-          return data.map(d => <Option key={d.value}>{d.text}</Option>);
+          return data.map((d) => <Option key={d.value}>{d.text}</Option>);
         }
         break;
     }

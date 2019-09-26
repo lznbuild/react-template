@@ -4,7 +4,7 @@ import { Drawer, Form, Input, Button } from 'antd';
 const { TextArea } = Input;
 
 class EditDrawer extends React.Component {
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {

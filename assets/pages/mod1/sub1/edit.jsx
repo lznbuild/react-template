@@ -14,7 +14,7 @@ const formItemLayout = {
     sm: { span: 18 }
   }
 };
-const Edit = props => {
+const Edit = (props) => {
   const [formData, setFormData] = useState({});
 
   const { pkInfo, handleClose } = props;
@@ -23,10 +23,10 @@ const Edit = props => {
 
   const isAddHandle = utils.isNullOrEmpty(pkInfo);
 
-  const addOrUpdate = values => {
+  const addOrUpdate = (values) => {
     const handleTitle = isAddHandle ? '添加' : '编辑';
     const status = isAddHandle ? 'add' : 'update';
-    testApi.addOrUpdate(isAddHandle, values).then(res => {
+    testApi.addOrUpdate(isAddHandle, values).then((res) => {
       if (res.data.data !== 0) {
         message.success(`${handleTitle}成功`);
         handleClose(status);
@@ -36,7 +36,7 @@ const Edit = props => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -47,7 +47,7 @@ const Edit = props => {
 
   useEffect(() => {
     if (!isAddHandle) {
-      testApi.detail(pkInfo).then(res => {
+      testApi.detail(pkInfo).then((res) => {
         const { data } = res.data;
         if (data) {
           setFormData(data);

@@ -24,14 +24,14 @@ class Sub1 extends React.Component {
     this.props.init(testApi);
   }
 
-  closeAddPage = isReloadTable => {
+  closeAddPage = (isReloadTable) => {
     this.setState({ addVisible: false });
     if (isReloadTable) {
       this.props.handleSearch('add');
     }
   };
 
-  closeEditPage = isReloadTable => {
+  closeEditPage = (isReloadTable) => {
     this.setState({ editVisible: false });
     if (isReloadTable) {
       this.props.handleSearch('update');
@@ -119,7 +119,7 @@ class Sub1 extends React.Component {
                   pageSizeOptions,
                   showSizeChanger: true,
                   onShowSizeChange: this.props.pageRowsChange,
-                  showTotal: num => `共${num}条`,
+                  showTotal: (num) => `共${num}条`,
                   showQuickJumper: true,
                   onChange: this.props.pageRowsChange
                 }}
@@ -128,7 +128,7 @@ class Sub1 extends React.Component {
                 ) => ({
                   onClick: () => this.props.setRowSelectedId(record.id)
                 })}
-                rowClassName={record => this.props.getRowClassName(record.id)}
+                rowClassName={(record) => this.props.getRowClassName(record.id)}
               />
             </div>
           </div>
