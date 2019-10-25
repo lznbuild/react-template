@@ -136,6 +136,7 @@ class Sub1 extends React.Component {
         {addVisible ? (
           <Drawer
             title="添加"
+            maskClosable={false}
             onClose={() => this.closeAddPage(false)}
             visible={addVisible}
             width="60%"
@@ -146,6 +147,7 @@ class Sub1 extends React.Component {
         {editVisible ? (
           <Drawer
             title="修改"
+            maskClosable={false}
             onClose={() => this.closeEditPage(false)}
             visible={editVisible}
             width="60%"
