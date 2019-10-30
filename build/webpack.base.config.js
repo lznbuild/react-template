@@ -4,7 +4,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const appConfig = require('./app.config.js');
 const srcPath = '../assets/';
-const staticPrefix = process.env.NODE_ENV == 'development' ? '' : appConfig.relativePrefix
+const isDev = process.env.NODE_ENV === 'development';
+const publicPath = isDev ? '' : getPublicPath();
+const outputPath = isDev ? '' : appConfig.relativePrefix;
+function getPublicPath() {
+  if (appConfig.prodPublicPath === './') {
+    return '../';
+  } else {
+    return appConfig.absolutePrefix;
+  }
+}
+
 module.exports = {
   entry: {
     app: [
@@ -52,8 +62,10 @@ module.exports = {
         use: {
           loader: 'url-loader',
           options: {
-            name: staticPrefix + 'imgs/[name].[contenthash:8].[ext]',
-            limit: 10240
+            name: '[name].[contenthash:8].[ext]',
+            limit: 10240,
+            publicPath: publicPath + 'imgs/',
+            outputPath: outputPath + 'imgs/'
           }
         }
       },
@@ -62,7 +74,9 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: staticPrefix + 'fonts/[name].[contenthash:8].[ext]'
+            name: '[name].[contenthash:8].[ext]',
+            publicPath: publicPath + 'fonts/',
+            outputPath: outputPath + 'fonts/'
           }
         }
       },
@@ -71,7 +85,9 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: staticPrefix + 'media/[name].[contenthash:8].[ext]'
+            name: '[name].[contenthash:8].[ext]',
+            publicPath: publicPath + 'media/',
+            outputPath: outputPath + 'media/'
           }
         }
       }
