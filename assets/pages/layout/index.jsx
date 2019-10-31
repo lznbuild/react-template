@@ -18,9 +18,15 @@ const pageComponents = [Mod1, Mod2, Mod3, Mod4];
 
 const Layout = () => {
   const [renderKey, setRenderKey] = useState(0);
+
   const { newModules, oldIndexs } = authUtils.getModuleRoles();
-  const homePath = authUtils.getHomePath();
-  const rootRedirectPath = authUtils.getRootRedirectPath(newModules);
+
+  const getRootRedirect = (modules) => {
+    if (modules[0].path === window.location.pathname && modules[0].children) {
+      return modules[0].children[0].path;
+    }
+    return modules[0].path;
+  };
 
   //TODO 测试使用
   authUtils.testSetModuleRoles();
@@ -40,11 +46,11 @@ const Layout = () => {
       <Header key={renderKey} modules={newModules} />
       {newModules.length > 0 ? (
         <Switch>
-          {homePath === rootRedirectPath ? null : (
+          {authUtils.getHomePath() === getRootRedirect(newModules) ? null : (
             <Route
               exact
-              path={homePath}
-              render={() => <Redirect to={rootRedirectPath}></Redirect>}
+              path={authUtils.getHomePath()}
+              render={() => <Redirect to={getRootRedirect(newModules)}></Redirect>}
             />
           )}
           {newModules.map((item, index) => (

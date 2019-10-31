@@ -86,16 +86,6 @@ const authUtils = (() => {
       return modTypes;
     },
 
-    getRootRedirectPath: (modulesArray) => {
-      if (modulesArray.length === 0) {
-        return '';
-      }
-      if (modulesArray[0].path === window.location.pathname && modulesArray[0].children) {
-        return modulesArray[0].children[0].path;
-      }
-      return modulesArray[0].path;
-    },
-
     clearStorage: () => {
       storageKeys.map((k) => window.sessionStorage.removeItem(k));
     },
