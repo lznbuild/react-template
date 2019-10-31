@@ -7,12 +7,10 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 
 const Echart = (props) => {
-  const { options, height } = props;
-  const chartId = `rc-ec-${Math.random()}`;
+  const { chartId, options, height } = props;
   let chart;
-
   const initChart = () => {
-    const chartDom = document.getElementById(`${chartId}`);
+    const chartDom = document.getElementById(chartId);
     //设置容器高宽
     chartDom.style.height = height;
     chart = echarts.init(chartDom);
@@ -21,16 +19,16 @@ const Echart = (props) => {
 
   // 用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
   const resizeChart = () => {
-    const chartDom = document.getElementById(`${chartId}`);
+    const chartDom = document.getElementById(chartId);
     chartDom.style.height = height;
     chart.resize();
   };
 
   useEffect(() => {
     initChart();
-    window.addEventListener('resize', resizeChart);
+    window.addEventListener('resize', resizeChart());
     return () => {
-      window.removeEventListener('resize', resizeChart);
+      window.removeEventListener('resize', resizeChart());
     };
   }, []);
 
