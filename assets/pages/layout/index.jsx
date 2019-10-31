@@ -22,7 +22,7 @@ const Layout = () => {
   const { newModules, oldIndexs } = authUtils.getModuleRoles();
 
   const getRootRedirect = (modules) => {
-    if (modules[0].path === window.location.pathname) {
+    if (modules[0].path === window.location.pathname && modules[0].children) {
       return modules[0].children[0].path;
     }
     return modules[0].path;
@@ -46,11 +46,13 @@ const Layout = () => {
       <Header key={renderKey} modules={newModules} />
       {newModules.length > 0 ? (
         <Switch>
-          <Route
-            exact
-            path={authUtils.getHomePath()}
-            render={() => <Redirect to={getRootRedirect(newModules)} />}
-          />
+          {authUtils.getHomePath() === getRootRedirect(newModules) ? null : (
+            <Route
+              exact
+              path={authUtils.getHomePath()}
+              render={() => <Redirect to={getRootRedirect(newModules)}></Redirect>}
+            />
+          )}
           {newModules.map((item, index) => (
             <Route
               key={index}
