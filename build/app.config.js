@@ -1,7 +1,10 @@
 module.exports = {
-  absolutePrefix : '/app/app-name/',
+  /* absolutePrefix : '/app/app-name/',
   relativePrefix: 'app/app-name/',
-  prodPublicPath: '/'
+  prodPublicPath: '/' */
+  absolutePrefix : '/',
+  relativePrefix: '',
+  prodPublicPath: './' 
 }
 /**
  * 当不使用路由时允许设置相对路径；
