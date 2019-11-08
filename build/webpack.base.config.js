@@ -14,6 +14,16 @@ function getPublicPath() {
     return appConfig.absolutePrefix;
   }
 }
+function getRandomMix(count) {
+  let buf = '';
+  const str = '0123456789abcdefghijklmnopqrstuvwsyz';
+  const str_len = str.length;
+  for (let i = 0; i < count; i++) {
+    const num = Math.floor(Math.random() * str_len);
+    buf += str.charAt(num);
+  }
+  return buf;
+}
 
 module.exports = {
   entry: {
@@ -101,7 +111,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'assets/index.html',
       templateParameters: {
-        appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.prodPublicPath + appConfig.relativePrefix
+        appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.prodPublicPath + appConfig.relativePrefix,
+        publishVersion: getRandomMix(8)
       }
     }),
     new CleanWebpackPlugin()
