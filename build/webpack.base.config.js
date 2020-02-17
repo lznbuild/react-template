@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const appConfig = require('./app.config.js');
 const srcPath = '../assets/';
 const isDev = process.env.NODE_ENV === 'development';
-const publicPath = isDev ? '' : getPublicPath();
+const publicPath = getPublicPath();
 const outputPath = isDev ? '' : appConfig.relativePrefix;
 function getPublicPath() {
   if (appConfig.prodPublicPath === './') {
