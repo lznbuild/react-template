@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Icon, Input } from 'antd';
 import LangDropdown from 'components/LangDropdown';
@@ -23,6 +23,12 @@ const Login = () => {
       }
     }) */
   };
+
+  useEffect(() => {
+    console.log('完成');
+    let arr = [1, 2, 3, 4];
+    console.log(arr.includes(3));
+  }, []);
 
   return (
     <div className="login-component">

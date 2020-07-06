@@ -28,6 +28,7 @@ function getRandomMix(count) {
 module.exports = {
   entry: {
     app: [
+      '@babel/polyfill',
       'react-hot-loader/patch',
       path.join(__dirname, srcPath, 'index.js')
     ]

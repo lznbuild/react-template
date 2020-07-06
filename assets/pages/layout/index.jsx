@@ -43,7 +43,7 @@ const Layout = () => {
 
   return (
     <div className="container">
-      <Header key={renderKey} modules={newModules} />
+      {/* <Header key={renderKey} modules={newModules} />
       {newModules.length > 0 ? (
         <Switch>
           {authUtils.getHomePath() === getRootRedirect(newModules) ? null : (
@@ -64,7 +64,10 @@ const Layout = () => {
         </Switch>
       ) : (
         <NoAccess />
-      )}
+      )} */}
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
     </div>
   );
 };
