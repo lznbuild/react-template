@@ -5,7 +5,6 @@ const prodConfig = require('./build/webpack.prod.config.js');
 
 
 function getIPAdress() {
-  console.log(object);
   var interfaces = require("os").networkInterfaces();
   for (var devName in interfaces) {
     var iface = interfaces[devName];
@@ -29,15 +28,15 @@ const currentConfig={
         devServer: {
           host: getIPAdress(),
           disableHostCheck: true,
-          // proxy: {
-          //   '/api': {
-          //     target: 'http://192.168.2.26:8081',
-          //     changeOrigin: true,
-          //     pathRewrite: {
-          //       '^/api': ''
-          //     }
-          //   }
-          // }
+          proxy: {
+            '/api': {
+              target: '',
+              changeOrigin: true,
+              pathRewrite: {
+                '^/api': ''
+              }
+            }
+          }
         }
       }
     ),

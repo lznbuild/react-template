@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.base.config.js');
 const appConfig = require('./app.config.js');
+
+
 const devConfig = {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',

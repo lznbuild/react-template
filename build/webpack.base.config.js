@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const appConfig = require('./app.config.js');
-const srcPath = '../assets/';
+const srcPath = '../src/';
 const isDev = process.env.NODE_ENV === 'development';
 const publicPath = getPublicPath();
 const outputPath = isDev ? '' : appConfig.relativePrefix;
@@ -36,12 +36,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      components: path.join(__dirname, srcPath, 'components'),
-      router: path.join(__dirname, srcPath, 'router'),
       store: path.join(__dirname, srcPath, 'store'),
       pages: path.join(__dirname, srcPath, 'pages'),
-      api: path.join(__dirname, srcPath, 'api'),
-      utils: path.join(__dirname, srcPath, 'utils'),
       public: path.join(__dirname, srcPath, 'public')
     }
   },
@@ -110,7 +106,7 @@ module.exports = {
       'process.env.APP_PREFIX': JSON.stringify(appConfig.absolutePrefix)
     }),
     new HtmlWebpackPlugin({
-      template: 'assets/index.html',
+      template: 'src/index.html',
       templateParameters: {
         appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.prodPublicPath + appConfig.relativePrefix,
         publishVersion: getRandomMix(8)
