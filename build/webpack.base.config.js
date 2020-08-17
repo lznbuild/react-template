@@ -107,7 +107,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       templateParameters: {
-        appPrefix: process.env.NODE_ENV == 'development' ? '/' : appConfig.prodPublicPath + appConfig.relativePrefix,
+        appPrefix: process.env.NODE_ENV == 'development' ? srcPath : appConfig.prodPublicPath + appConfig.relativePrefix,
         publishVersion: getRandomMix(8)
       }
     }),
