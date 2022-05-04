@@ -1,8 +1,10 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const path = require('path');
+const bodyParser = require('body-parser');
 const commonConfig = require('./webpack.base.config.js');
 const appConfig = require('./app.config.js');
-
+const middleware = require('./mockMiddleware.js');
 
 const devConfig = {
   mode: 'development',
@@ -13,11 +15,17 @@ const devConfig = {
     },
     open: true,
     openPage: appConfig.relativePrefix,
-    port: 9000,
+    port: 9001,
     hot: true,
     overlay: {
       errors: true
-    }
+    },
+    before(app) {
+      app.use(bodyParser.json())
+      app.use(bodyParser.urlencoded({ extended: false }))
+      app.use(middleware);
+    },
+
   },
   resolve: {
     alias: {

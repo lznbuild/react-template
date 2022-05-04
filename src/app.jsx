@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-
+import axios from 'axios';
 import { routeList } from './common/config';
 import BreadCrumb from './components/BreadCrumb';
 
@@ -10,7 +10,18 @@ import './index.css';
 // const Page2 = React.lazy(() => import('pages/Page2'));
 // const Page404 = React.lazy(() => import('pages/Page404'));
 
+/** 获取banner信息 */
+async function fetchBannerList() {
+  const res = await axios.get('/rest/default');
+  console.log(res, 'res');
+  return res.data;
+}
+
 class App extends React.Component {
+  componentDidMount() {
+    fetchBannerList();
+  }
+
   render() {
     return (
       <BrowserRouter>
